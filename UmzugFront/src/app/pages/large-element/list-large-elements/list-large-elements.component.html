@@ -1,0 +1,134 @@
+<app-breadcrumbs
+    title="Liste der Schwer möbel"
+    [breadcrumbItems]="breadCrumbItems">
+</app-breadcrumbs>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-body p-3">
+                <div id="largeElementList">
+
+                    <!-- Kopfzeile -->
+                    <div class="row g-2 mb-3">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-success" (click)="addLargeElement()">
+                                <i class="ri-add-line align-bottom me-1"></i> Hinzufügen
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tabelle -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                            <tr class="bg-light text-muted">
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Preis (€)</th>
+                                <th>Aktionen</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let element of listLargeElements | slice: (currentPage - 1) * itemsPerPage : currentPage * itemsPerPage">
+                                <td>{{ element.id_largeElement }}</td>
+                                <td>{{ element.name }}</td>
+                                <td>{{ element.price | number:'1.2-2' }}</td>
+                                <td>
+                                    <a
+                                        class="text-primary me-2"
+                                        style="cursor: pointer;"
+                                        (click)="openModal(element, content)">
+                                        <i class="ri-pencil-fill fs-16"></i>
+                                    </a>
+                                    <a
+                                        class="text-danger"
+                                        style="cursor: pointer;"
+                                        (click)="confirmDelete(deleteModal, element.id_largeElement)">
+                                        <i class="ri-delete-bin-5-fill fs-16"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Paginierung -->
+                    <div class="d-flex justify-content-end mt-3">
+                        <ngb-pagination
+                            [collectionSize]="length"
+                            [(page)]="currentPage"
+                            [pageSize]="itemsPerPage"
+                            [maxSize]="5"
+                            [rotate]="true"
+                            (pageChange)="pageChanged($event)">
+                        </ngb-pagination>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bearbeitungs-Modal -->
+<ng-template #content let-modal>
+    <form [formGroup]="editLargeElementForm" (ngSubmit)="saveLargeElement()" novalidate>
+        <div class="modal-header bg-light p-3">
+            <h5 class="modal-title">Großes Element bearbeiten (ID: {{ selectedLargeElement.id_largeElement }})</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="mb-3">
+                <label for="nameInput" class="form-label">Name</label>
+                <input
+                    type="text"
+                    id="nameInput"
+                    class="form-control"
+                    formControlName="name"
+                    placeholder="Name des Elements eingeben" />
+                <div *ngIf="submitted && f['name'].invalid" class="text-danger small mt-1">
+                    <div *ngIf="f['name'].errors?.['required']">Name ist erforderlich</div>
+                    <div *ngIf="f['name'].errors?.['minlength']">Der Name muss mindestens 3 Zeichen lang sein</div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="priceInput" class="form-label">Preis (€)</label>
+                <input
+                    type="number"
+                    id="priceInput"
+                    class="form-control"
+                    formControlName="price"
+                    step="0.01"
+                    min="0"
+                    placeholder="z. B. 123.45" />
+                <div *ngIf="submitted && f['price'].invalid" class="text-danger small mt-1">
+                    <div *ngIf="f['price'].errors?.['required']">Preis ist erforderlich</div>
+                    <div *ngIf="f['price'].errors?.['pattern']">Bitte einen gültigen Preis eingeben (z. B. 123.45)</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Abbrechen</button>
+            <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
+    </form>
+</ng-template>
+
+<!-- Löschbestätigungs-Modal -->
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Bestätigung</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Sind Sie sicher, dass Sie dieses große Element löschen möchten?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Abbrechen</button>
+        <button type="button" class="btn btn-danger" (click)="deleteLargeElement(selectedLargeElement.id_largeElement)">Löschen</button>
+    </div>
+</ng-template>

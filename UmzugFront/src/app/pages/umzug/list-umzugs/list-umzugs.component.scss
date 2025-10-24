@@ -1,0 +1,316 @@
+/* list-umzugs.component.scss */
+
+// Card styling
+.card {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  
+  .card-title {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    
+    i {
+      color: #007bff;
+    }
+  }
+}
+
+// Table improvements
+.table {
+  th {
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-top: none;
+    vertical-align: middle;
+    background-color: #f8f9fa;
+    color: #495057;
+  }
+  
+  td {
+    vertical-align: middle;
+    font-size: 0.875rem;
+    
+    .fw-bold {
+      color: #007bff;
+    }
+  }
+  
+  .table-sm td,
+  .table-sm th {
+    padding: 0.5rem;
+  }
+}
+
+// Badge customizations
+.badge {
+  &.bg-secondary {
+    background-color: #6c757d !important;
+  }
+  
+  &.bg-primary {
+    background-color: #007bff !important;
+  }
+  
+  &.bg-success {
+    background-color: #28a745 !important;
+  }
+  
+  &.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+  }
+  
+  &.bg-info {
+    background-color: #17a2b8 !important;
+  }
+  
+  &.bg-danger {
+    background-color: #dc3545 !important;
+  }
+}
+
+// Button styling
+.btn {
+  font-size: 0.875rem;
+  
+  &.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  &.btn-outline-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  &.btn-outline-warning:hover {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+  }
+  
+  &.btn-outline-danger:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+}
+
+// Modal styling
+.modal-header {
+  &.bg-primary {
+    background-color: #007bff !important;
+    
+    .modal-title {
+      font-weight: 600;
+    }
+    
+    .btn-close-white {
+      filter: invert(1) grayscale(100%) brightness(200%);
+    }
+  }
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+// Card variations for modal
+.border-left-primary {
+  border-left: 4px solid #007bff !important;
+}
+
+.border-left-success {
+  border-left: 4px solid #28a745 !important;
+}
+
+// Accordion customizations
+.accordion {
+  .accordion-item {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    margin-bottom: 0.5rem;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    
+    .accordion-header {
+      .accordion-button {
+        background-color: #f8f9fa;
+        border: none;
+        font-weight: 500;
+        
+        &:not(.collapsed) {
+          background-color: #e3f2fd;
+          color: #007bff;
+        }
+        
+        &:focus {
+          box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        }
+        
+        .badge {
+          margin-left: auto;
+        }
+      }
+    }
+    
+    .accordion-body {
+      background-color: #ffffff;
+      padding: 1rem;
+    }
+  }
+}
+
+// Loading spinner
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+// Empty state styling
+.text-center {
+  .display-4 {
+    font-size: 3.5rem;
+    opacity: 0.3;
+  }
+}
+
+// Responsive table
+.table-responsive {
+  border-radius: 0.375rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    
+    .btn-sm {
+      padding: 0.125rem 0.25rem;
+      font-size: 0.7rem;
+    }
+    
+    .badge {
+      font-size: 0.6rem;
+    }
+  }
+}
+
+// Route display
+.text-muted {
+  color: #6c757d !important;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.text-primary {
+  color: #007bff !important;
+}
+
+// Pagination
+ngb-pagination {
+  .page-link {
+    color: #007bff;
+    border-color: #dee2e6;
+    
+    &:hover {
+      background-color: #e9ecef;
+      border-color: #dee2e6;
+    }
+  }
+  
+  .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+}
+
+// Modal size adjustments
+@media (min-width: 1200px) {
+  .modal-xl {
+    max-width: 1140px;
+  }
+}
+
+// Print styles
+@media print {
+  .modal-header,
+  .modal-footer,
+  .btn,
+  .pagination {
+    display: none !important;
+  }
+  
+  .modal-body {
+    padding: 0 !important;
+  }
+  
+  .card {
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+  }
+}
+
+// Utility classes
+.gap-2 {
+  gap: 0.5rem !important;
+}
+
+.gap-1 {
+  gap: 0.25rem !important;
+}
+
+.flex-wrap {
+  flex-wrap: wrap !important;
+}
+
+.align-bottom {
+  vertical-align: bottom !important;
+}
+
+.me-1 {
+  margin-right: 0.25rem !important;
+}
+
+.me-2 {
+  margin-right: 0.5rem !important;
+}
+
+.ms-auto {
+  margin-left: auto !important;
+}
+
+.ms-2 {
+  margin-left: 0.5rem !important;
+}
+
+.mt-3 {
+  margin-top: 1rem !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem !important;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.py-3 {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+
+.py-4 {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}

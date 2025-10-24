@@ -1,0 +1,52 @@
+th {
+  text-align: center ;
+}
+tr{
+  text-align: center ;
+}
+a{
+  margin-right: 20px;
+}
+
+ul{
+  text-align: center ;
+}
+
+li{
+  text-align: center ;
+}
+
+.list-inline-item:not(:last-child):after {
+  content: " ";
+  margin-left: 10px; /* Ajustez cette valeur selon vos besoins */
+  margin-right: 10px; /* Ajustez cette valeur selon vos besoins */
+}
+.actions-header {
+  width: 100px;  /* Adjust this width based on your needs */
+}
+
+.small-text {
+  font-size: 0.8em;  /* This reduces the text size to 80% of the original. Adjust as needed. */
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.my-custom-card {
+  max-width: 800px; /* Ajustez la valeur en pixels selon vos besoins */
+  margin: 0 auto; /* Pour centrer la carte horizontalement */
+}
+
+.avatar-lg {
+  width: 100px;  /* Taille du cercle */
+  height: 100px; /* Taille du cercle */
+  border-radius: 50%; /* Rend le div parfaitement circulaire */
+  overflow: hidden;  /* Masque les parties de l'image qui débordent */
+}
+
+.avatar-lg img {
+  width: 100%;  /* Assure que l'image couvre toute la largeur du cercle */
+  height: 100%; /* Assure que l'image couvre toute la hauteur du cercle */
+  object-fit: cover; /* Garantit que l'image couvre l'espace disponible, coupée si nécessaire */
+}

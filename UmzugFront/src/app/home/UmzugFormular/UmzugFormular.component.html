@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title>Sam24GmbH - Transport & Logistics</title>
+</head>
+<body>
+
+<!-- Start Header Area -->
+<app-header></app-header>
+<!-- End Header Area -->
+
+<!-- Start Sidebar Modal -->
+<div class="sidebar-modal">
+    <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">
+									<i class="bx bx-x"></i>
+								</span>
+                    </button>
+                    <h2 class="modal-title" id="myModalLabel2">
+                        <a routerLink="">
+                            <img src="assetsFront/img/logo/logo-one.png" alt="Logo">
+                        </a>
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">About Us</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, asperiores doloribus eum laboriosam praesentium delectus unde magni aut perspiciatis cumque deserunt dolore voluptate, autem pariatur? Dicta pariatur.</p>
+                    </div>
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">Additional Links</h3>
+                        <ul>
+                            <li>
+                                <a routerLink="/auth/login">Log In</a>
+                            </li>
+                            <li>
+                                <a routerLink="/auth/register">Sign Up</a>
+                            </li>
+                            <li>
+                                <a routerLink="/faq">FAQ</a>
+                            </li>
+                            <li>
+                                <a routerLink="/auth/login">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">Contact Info</h3>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="bx bx-location-plus"></i>
+                                Address
+                                <span>New York - 1060, Str. First 78 Great Western Road</span>
+                            </li>
+                            <li>
+                                <i class="bx bx-envelope"></i>
+                                Email
+                                <a href="mailto:hello@prevoz.com">hello@xsupply.com</a>
+                                <a href="mailto:info@xsupply.com">info@xsupply.com</a>
+                            </li>
+                            <li>
+                                <i class="bx bxs-phone-call"></i>
+                                Phone
+                                <a href="tel:+502-464-679">+502-464-679</a>
+                                <a href="tel:+265-497-466">+265-497-466</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">Connect With Us</h3>
+                        <ul class="social-list">
+                            <li>
+                                <a href="https://www.twitter.com/" target="_blank">
+                                    <i class='bx bxl-twitter'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank">
+                                    <i class='bx bxl-facebook'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/" target="_blank">
+                                    <i class='bx bxl-instagram'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/" target="_blank">
+                                    <i class='bx bxl-linkedin'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/" target="_blank">
+                                    <i class='bx bxl-youtube'></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar Modal -->
+<div class="page-title-area item-bg-1 jarallax"  data-jarallax='{"speed": 0.3}'>
+    <div class="container">
+        <div class="page-title-content">
+            <div class="row align-items-center">
+               
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start Search Box Modal -->
+
+<!-- End Page Title Area -->
+<div class="max-w-6xl mx-auto p-6 bg-white">
+  <!-- Header -->
+   <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-lg mb-8">
+    <div class="flex justify-between items-center">
+      <div>
+        <h1 class="text-3xl font-bold mb-2">{{ pageTitle }}</h1>
+        <p class="text-blue-100">
+          {{ isEditMode ? 'Bearbeiten Sie Ihre Umzug Anfrage' : 'Berechnen Sie den Preis für Ihren Umzug' }}
+        </p>
+      </div>
+      <div *ngIf="isEditMode" class="text-right">
+        <span class="inline-block bg-yellow-500 text-yellow-900 px-3 py-1 rounded-full text-sm font-medium">
+          <i class="ri-edit-line mr-1"></i>Bearbeitungsmodus
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="flex justify-center items-center py-8">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+    <span class="ml-3 text-gray-600">{{ isEditMode ? 'Daten werden geladen...' : 'Wird geladen...' }}</span>
+  </div>
+
+  <form [formGroup]="umzugForm" (ngSubmit)="onSubmit()" class="space-y-8" *ngIf="!loading">
+    
+    <!-- Client Information -->
+    <div class="bg-gray-50 p-6 rounded-lg">
+      <h2 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fas fa-home mr-2"></i>
+        Kundendaten
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-2">Name *</label>
+          <input
+            type="text"
+            formControlName="clientName"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            [class.border-red-500]="isFieldInvalid('clientName')"
+            placeholder="Ihr vollständiger Name"
+          />
+          <div *ngIf="isFieldInvalid('clientName')" class="text-red-500 text-sm mt-1">
+            Name ist erforderlich
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Email *</label>
+          <input
+            type="email"
+            formControlName="clientEmail"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            [class.border-red-500]="isFieldInvalid('clientEmail')"
+            placeholder="ihre.email@beispiel.de"
+          />
+          <div *ngIf="isFieldInvalid('clientEmail')" class="text-red-500 text-sm mt-1">
+            Gültige Email ist erforderlich
+          </div>
+        </div>
+        <div>
+  <label class="block text-sm font-medium mb-2">Nummer *</label>
+  <input
+    type="text"
+    formControlName="phone"
+    class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+    [class.border-red-500]="umzugForm.get('phone')?.invalid && (umzugForm.get('phone')?.dirty || umzugForm.get('phone')?.touched)"
+    placeholder="Ihr vollständiger Nummer"
+  />
+  <div *ngIf="umzugForm.get('phone')?.invalid && (umzugForm.get('phone')?.dirty || umzugForm.get('phone')?.touched)" class="text-red-500 text-sm mt-1">
+    <div *ngIf="umzugForm.get('phone')?.errors?.['required']">Nummer ist erforderlich</div>
+    <div *ngIf="umzugForm.get('phone')?.errors?.['pattern']">Ungültige Nummer. Bitte eine gültige Telefonnummer eingeben, z.B. +491234567890.</div>
+  </div>
+        </div>
+      <div>
+  <label class="block text-sm font-medium mb-2">Umzugsdatum *</label>
+  <input
+    type="datetime-local"
+    formControlName="umzugdate"
+    class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+    [class.border-red-500]="isFieldInvalid('umzugdate')"
+  />
+  <div *ngIf="isFieldInvalid('umzugdate')" class="text-red-500 text-sm mt-1">
+    Umzugsdatum ist erforderlich
+  </div>
+</div>
+      </div>
+    </div>
+
+    <!-- Locations -->
+    <div class="bg-gray-50 p-6 rounded-lg">
+      <h2 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fas fa-map-marker-alt mr-2"></i>
+        Standorte
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-2">Abfahrtsort *</label>
+          <input
+            type="text"
+            formControlName="departPoint"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            [class.border-red-500]="isFieldInvalid('departPoint')"
+            placeholder="Startadresse"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Ankunftsort *</label>
+          <input
+            type="text"
+            formControlName="arrivalPoint"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            [class.border-red-500]="isFieldInvalid('arrivalPoint')"
+            placeholder="Zieladresse"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Entfernung (km)</label>
+          <input
+            type="number"
+            formControlName="distanceKm"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            min="0"
+            step="0.1"
+            placeholder="0"
+          />
+          <p *ngIf="getDistanceExtraPrice() > 0" class="text-sm text-orange-600 mt-1">
+            Zusätzliche Kosten: {{ getDistanceExtraPrice().toFixed(2) }}€
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Building Details -->
+    <div class="bg-gray-50 p-6 rounded-lg">
+      <h2 class="text-xl font-semibold mb-4">Gebäude Details</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-2">Anzahl Etagen Abfahrtsort</label>
+          <input
+            type="number"
+            formControlName="numberOfEtagesDepart"
+            class="w-200 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            min="1"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Anzahl Etagen Ankunftsort</label>
+          <input
+            type="number"
+            formControlName="numberOfEtagesArrival"
+            class="w-200 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            min="1"
+          />
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="elevatorDepart"
+            formControlName="withElevatorDepart"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="elevatorDepart" class="ml-2 text-sm font-medium">
+            Mit Aufzug Abfahrtsort ({{ ETAGE_PRICE_WITH_ELEVATOR }}€/Etage statt {{ ETAGE_PRICE_WITHOUT_ELEVATOR }}€/Etage)
+          </label>
+                  </div>
+        <div class="flex items-center">
+
+          <input
+            type="checkbox"
+            id="elevatorArrival"
+            formControlName="withElevatorArrival"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="elevatorArrival" class="ml-2 text-sm font-medium">
+            Mit Aufzug Ankunftsort ({{ ETAGE_PRICE_WITH_ELEVATOR }}€/Etage statt {{ ETAGE_PRICE_WITHOUT_ELEVATOR }}€/Etage)
+          </label>
+                            </div>
+
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="parkplatzDepart"
+            formControlName="withParkPlatzDepart"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="parkplatzDepart" class="ml-2 text-sm font-medium">
+            Mit Park Platz Abfahrtsort (Frei , Ohne Park Platz +{{WITHOUT_PARKPLATZ_PRICE}}€ )
+          </label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="parkplatzArrival"
+            formControlName="withParkPlatzArrival"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="parkplatzArrival" class="ml-2 text-sm font-medium">
+            Mit Park Platz Ankunftsort (Frei , Ohne Park Platz +{{WITHOUT_PARKPLATZ_PRICE}}€ )
+          </label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="demontage"
+            formControlName="withDemontage"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="demontage" class="ml-2 text-sm font-medium">
+            Mit Demontage (+{{ DEMONTAGE_PRICE }}€)
+          </label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="demontage"
+            formControlName="withMontage"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="demontage" class="ml-2 text-sm font-medium">
+            Mit Montage (+{{ MONTAGE_PRICE }}€)
+          </label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="demontage"
+            formControlName="withDemontageLamp"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="demontage" class="ml-2 text-sm font-medium">
+            Mit Demontage Lamp (+{{ DEMONTAGELAMP_PRICE }}€)
+          </label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="demontage"
+            formControlName="withMontageLamp"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="demontage" class="ml-2 text-sm font-medium">
+            Mit Montage Lamp (+{{ MONTAGELAMP_PRICE }}€)
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kartons -->
+    <div class="bg-gray-50 p-6 rounded-lg">
+      <h2 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fas fa-box mr-2"></i>
+        Kartons
+      </h2>
+      <div class="flex items-center space-x-4">
+        <label class="text-sm font-medium">Anzahl Kartons (je {{ PRICE_PER_KARTON }}€):</label>
+        <input
+          type="number"
+          formControlName="numberOfKartons"
+          class="w-24 p-2 border rounded focus:ring-2 focus:ring-blue-500"
+          min="0"
+        />
+        <span class="text-sm text-gray-600">
+          = {{ getKartonsPrice().toFixed(2) }}€
+        </span>
+      </div>
+    </div>
+
+    <!-- Kitchen Services -->
+    <div class="bg-gray-50 p-6 rounded-lg" *ngIf="kitchens.length > 0">
+      <h2 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fas fa-tools mr-2"></i>
+        Küchen Service
+      </h2>
+      <div class="space-y-3">
+        <div class="flex items-center">
+          <input
+            type="radio"
+            id="no-kitchen"
+            name="kitchen"
+            [value]="null"
+            formControlName="kitchen"
+            class="w-4 h-4 text-blue-600"
+          />
+          <label for="no-kitchen" class="ml-2 text-sm font-medium">
+            Kein Küchen Service
+          </label>
+        </div>
+        <div *ngFor="let kitchen of kitchens; let i = index" class="flex items-center">
+          <input
+            type="radio"
+            [id]="'kitchen-' + kitchen.id_kitchen"
+            name="kitchen"
+            [value]="kitchen"
+            formControlName="kitchen"
+            class="w-4 h-4 text-blue-600"
+          />
+          <label [for]="'kitchen-' + kitchen.id_kitchen" class="ml-2 text-sm">
+            <span class="font-medium">{{ kitchen.price }}€</span> 
+            <div class="text-xs text-gray-600">
+              <span *ngIf="kitchen.assemblage">• Montage </span>
+              <span *ngIf="kitchen.dessemblage">• Demontage </span>
+              <span *ngIf="kitchen.transportKitchen">• Transport</span>
+              <span *ngIf="kitchen.newKitchen" style="font-weight: bold;">• Neu</span>
+                            <span *ngIf="!kitchen.newKitchen" style="font-weight: bold;">• Alt</span>
+
+            </div>
+            
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Room Selection -->
+    <div class="bg-gray-50 p-6 rounded-lg" *ngIf="rooms.length > 0">
+      <h2 class="text-xl font-semibold mb-4">Räume auswählen</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <button
+          *ngFor="let room of rooms"
+          type="button"
+          class="p-3 rounded-lg border-2 transition-colors"
+          [class.border-blue-500]="selectedRooms[room.id_room]"
+          [class.bg-blue-50]="selectedRooms[room.id_room]"
+          [class.text-blue-700]="selectedRooms[room.id_room]"
+          [class.border-gray-300]="!selectedRooms[room.id_room]"
+          [class.bg-white]="!selectedRooms[room.id_room]"
+          [class.hover:border-gray-400]="!selectedRooms[room.id_room]"
+          (click)="toggleRoom(room.id_room)"
+        >
+          {{ room.name }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobels for selected rooms -->
+    <div
+      *ngFor="let room of getSelectedRoomsList()"
+      class="bg-white border-2 border-blue-200 rounded-lg p-6"
+    >
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-blue-800">{{ room.name }}</h3>
+        <button
+          type="button"
+          class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 flex items-center"
+          (click)="addMobelToRoom(room.id_room)"
+        >
+          <i class="fas fa-plus mr-1"></i>
+          Möbel hinzufügen
+        </button>
+      </div>
+      
+      <div *ngIf="!mobelsForRooms[room.id_room] || mobelsForRooms[room.id_room].length === 0" class="text-gray-500 italic">
+        Keine Möbel hinzugefügt
+      </div>
+      
+      <div
+        *ngFor="let mobel of mobelsForRooms[room.id_room]; let mobelIndex = index"
+        class="bg-gray-50 p-4 rounded border mb-3"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+           <div>
+            <label class="block text-sm font-medium mb-1">Anzahl der Möbel</label>
+            <input
+              type="number"
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              [value]="mobel.numberElement"
+    (input)="handleInputChange(room.id_room, mobelIndex, 'numberElement', $event)"
+ min="1"
+              step="1"            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Möbel Name</label>
+            <input
+              type="text"
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              [value]="mobel.name"
+    (input)="handleInputChange(room.id_room, mobelIndex, 'name', $event)"
+              placeholder="z.B. Sofa, Tisch..."
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Breite (cm)</label>
+            <input
+              type="number"
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              [value]="mobel.width"
+    (input)="handleInputChange(room.id_room, mobelIndex, 'width', $event)"
+              min="0"
+              step="0.1"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Höhe (cm)</label>
+            <input
+              type="number"
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              [value]="mobel.height"
+    (input)="handleInputChange(room.id_room, mobelIndex, 'height', $event)"
+              min="0"
+              step="0.1"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Länge (cm)</label>
+            <input
+              type="number"
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              [value]="mobel.length"
+    (input)="handleInputChange(room.id_room, mobelIndex, 'length', $event)"
+              min="0"
+              step="0.1"
+            />
+          </div>
+          <div class="flex items-center space-x-2">
+            <div class="text-sm text-gray-600">
+              {{ (mobel.q2 || 0).toFixed(3) }} m²
+            </div>
+             <div class="text-sm text-gray-600">
+                 {{ (mobel.price || 0).toFixed(2) }}€
+            </div>
+            <button
+              type="button"
+              class="bg-red-500 text-white p-2 rounded hover:bg-red-600"
+              (click)="removeMobelFromRoom(room.id_room, mobelIndex)"
+            >
+              <i class="ri-delete-bin-line"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Price Summary -->
+    <div class="bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-200 rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-4 flex items-center text-green-800">
+        <i class="fas fa-calculator mr-2"></i>
+        Preisübersicht
+      </h2>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between">
+          <span>Möbel Volumen ({{ totalVolume.toFixed(3) }} m² × {{ PRICE_PER_M3 }}€):</span>
+          <span>{{ (totalVolume * PRICE_PER_M3).toFixed(2) }}€</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Kartons ({{ umzugForm.get('numberOfKartons')?.value || 0 }} × {{ PRICE_PER_KARTON }}€):</span>
+          <span>{{ getKartonsPrice().toFixed(2) }}€</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Entfernung ({{ getDistanceExtraPrice() > 0 ? (umzugForm.get('distanceKm')?.value - MIN_DISTANCE_FREE) + 'km × 2€' : 'kostenlos ≤ 20km' }}):</span>
+          <span>{{ getDistanceExtraPrice().toFixed(2) }}€</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Etagen Abfahrtsort ({{ umzugForm.get('numberOfEtagesDepart')?.value || 1 }} × {{ umzugForm.get('withElevatorDepart')?.value ? ETAGE_PRICE_WITH_ELEVATOR + '€ (mit Aufzug)' : ETAGE_PRICE_WITHOUT_ELEVATOR + '€ (ohne Aufzug)' }}):</span>
+          <span>{{ getEtagePriceDepart().toFixed(2) }}€</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Etagen Ankunftsort ({{ umzugForm.get('numberOfEtagesArrival')?.value || 1 }} × {{ umzugForm.get('withElevatorArrival')?.value ? ETAGE_PRICE_WITH_ELEVATOR + '€ (mit Aufzug)' : ETAGE_PRICE_WITHOUT_ELEVATOR + '€ (ohne Aufzug)' }}):</span>
+          <span>{{ getEtagePriceArrival().toFixed(2) }}€</span>
+        </div>
+        <div *ngIf="umzugForm.get('withDemontage')?.value" class="flex justify-between">
+          <span>Demontage:</span>
+          <span>{{ DEMONTAGE_PRICE.toFixed(2) }}€</span>
+        </div>
+         <div *ngIf="!umzugForm.get('withParkPlatzDepart')?.value" class="flex justify-between">
+          <span>Park Platz Abfahrtsort:</span>
+          <span>{{ WITHOUT_PARKPLATZ_PRICE.toFixed(2) }}€</span>
+        </div>
+        <div *ngIf="!umzugForm.get('withParkPlatzArrival')?.value" class="flex justify-between">
+          <span>Park Platz Ankunftsort:</span>
+          <span>{{ WITHOUT_PARKPLATZ_PRICE.toFixed(2) }}€</span>
+        </div>
+        <div *ngIf="umzugForm.get('withMontage')?.value" class="flex justify-between">
+          <span>Montage:</span>
+          <span>{{ MONTAGE_PRICE.toFixed(2) }}€</span>
+        </div>
+        <div *ngIf="umzugForm.get('withDemontageLamp')?.value" class="flex justify-between">
+          <span>Demontage Lamp:</span>
+          <span>{{ DEMONTAGELAMP_PRICE.toFixed(2) }}€</span>
+        </div>
+        <div *ngIf="umzugForm.get('withMontageLamp')?.value" class="flex justify-between">
+          <span>Montage Lamp:</span>
+          <span>{{ MONTAGELAMP_PRICE.toFixed(2) }}€</span>
+        </div>
+        <div *ngIf="umzugForm.get('kitchen')?.value" class="flex justify-between">
+ <span>
+    Küchen Service:
+    <span class="text-sm">
+      <span *ngIf="umzugForm.get('kitchen')?.value?.assemblage">• Montage </span>
+      <span *ngIf="umzugForm.get('kitchen')?.value?.dessemblage">• Demontage </span>
+      <span *ngIf="umzugForm.get('kitchen')?.value?.transportKitchen">• Transport</span>
+       <span *ngIf="umzugForm.get('kitchen')?.value?.newKitchen" style="font-weight: bold;">• Neu</span>
+  <span *ngIf="!umzugForm.get('kitchen')?.value?.newKitchen" style="font-weight: bold;">• Alt</span>
+    </span>
+  </span>          <span>{{ umzugForm.get('kitchen')?.value?.price?.toFixed(2) }}€</span>
+        </div>
+        <hr class="border-green-300" />
+        <div class="flex justify-between font-bold text-lg text-green-800">
+          <span>Gesamtpreis:</span>
+          <span>{{ totalPrice.toFixed(2) }}€</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex justify-between items-center">
+      <button
+        type="button"
+        class="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        (click)="cancel()"
+      >
+        <i class="ri-close-line mr-1"></i>
+        {{ isEditMode ? 'Abbrechen' : 'Zurück' }}
+      </button>
+       <button 
+                    type="button" 
+                    class="btn btn-outline-info me-2"
+                    (click)="generateQuote()"
+                    [disabled]="!umzugForm.valid || loading">
+                    <i class="fas fa-file-invoice"></i> Angebot erstellen
+                  </button>
+      <button
+        type="submit"
+        class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        [disabled]="loading || umzugForm.invalid"
+      >
+        <span *ngIf="loading" class="mr-2">
+          <i class="ri-loader-4-line animate-spin"></i>
+        </span>
+        <i *ngIf="!loading" class="{{ isEditMode ? 'ri-save-line' : 'ri-add-line' }} mr-1"></i>
+        {{ loading ? (isEditMode ? 'Wird aktualisiert...' : 'Wird gespeichert...') : (isEditMode ? 'Änderungen speichern' : 'Umzug speichern') }}
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- End Began Area -->
+
+<div *ngIf="showQuote && currentRequestData" class="quote-overlay">
+  <div class="quote-modal">
+    <div class="quote-header-actions">
+      <button 
+        type="button" 
+        class="btn btn-outline-secondary btn-sm"
+        (click)="closeQuote()">
+        <i class="fas fa-arrow-left"></i> Zurück zum Formular
+      </button>
+    </div>
+
+    <!-- Quote Content -->
+    <div class="quote-container">
+      <!-- Header Section -->
+      <div class="quote-header">
+        <div class="company-logo">
+          <img [src]="companyInfo.logo" [alt]="companyInfo.name + ' Logo'" class="logo">
+          <h1 class="company-name">{{ companyInfo.name }}</h1>
+        </div>
+        <div class="company-details">
+          <div class="detail-item">
+            <strong>Geschäftsführer:</strong> {{ companyInfo.geschaeftsfuehrer }}
+          </div>
+          <div class="detail-item">
+            <strong>Email:</strong> {{ companyInfo.email }}
+          </div>
+          <div class="detail-item">
+            <strong>Telefon:</strong> {{ companyInfo.telephone }}
+          </div>
+          <div class="detail-item">
+            <strong>Website:</strong> {{ companyInfo.website }}
+          </div>
+          <div class="detail-item">
+            <strong>Adresse:</strong> {{ companyInfo.address }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Quote Title -->
+      <div class="quote-title">
+        <h2>UMZUGSANGEBOT</h2>
+   <div class="quote-number">Angebot Nr.: {{ getQuoteNumber() }}</div>
+        <div class="quote-date">Datum: {{ getCurrentDate() }}</div>
+      </div>
+
+      <!-- Customer Information -->
+      <div class="customer-section">
+        <h3>Kundeninformationen</h3>
+        <div class="customer-details">
+          <div class="customer-row">
+            <span class="label">Name:</span>
+            <span class="value">{{ currentRequestData.clientName }}</span>
+          </div>
+          <div class="customer-row">
+            <span class="label">Email:</span>
+            <span class="value">{{ currentRequestData.clientEmail }}</span>
+          </div>
+          <div class="customer-row">
+            <span class="label">Telefon:</span>
+            <span class="value">{{ currentRequestData.phone }}</span>
+          </div>
+          <div class="customer-row">
+            <span class="label">Umzugsdatum:</span>
+            <span class="value">{{ formatDate(currentRequestData.umzugdate) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Moving Details -->
+      <div class="moving-section">
+        <h3>Umzugsdetails</h3>
+        <div class="moving-details">
+          <div class="detail-row">
+            <span class="label">Von:</span>
+            <span class="value">{{ currentRequestData.departPoint }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Nach:</span>
+            <span class="value">{{ currentRequestData.arrivalPoint }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Entfernung:</span>
+            <span class="value">{{ currentRequestData.distanceKm }} km</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Etagen Abfahrt:</span>
+            <span class="value">{{ currentRequestData.numberOfEtagesDepart }} ({{ currentRequestData.withElevatorDepart ? 'Mit Aufzug' : 'Ohne Aufzug' }})</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Etagen Ankunft:</span>
+            <span class="value">{{ currentRequestData.numberOfEtagesArrival }} ({{ currentRequestData.withElevatorArrival ? 'Mit Aufzug' : 'Ohne Aufzug' }})</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Services Section -->
+      <div class="services-section" *ngIf="currentRequestData.withDemontage || currentRequestData.withMontage || currentRequestData.withDemontageLamp || currentRequestData.withMontageLamp || currentRequestData.kitchen">
+        <h3>Zusätzliche Leistungen</h3>
+        <div class="services-grid">
+          <div class="service-item" *ngIf="currentRequestData.withDemontage">
+            <i class="service-icon">🔧</i>
+            <span>Demontage</span>
+          </div>
+          <div class="service-item" *ngIf="currentRequestData.withMontage">
+            <i class="service-icon">🔨</i>
+            <span>Montage</span>
+          </div>
+          <div class="service-item" *ngIf="currentRequestData.withDemontageLamp">
+            <i class="service-icon">💡</i>
+            <span>Lampen Demontage</span>
+          </div>
+          <div class="service-item" *ngIf="currentRequestData.withMontageLamp">
+            <i class="service-icon">💡</i>
+            <span>Lampen Montage</span>
+          </div>
+         <div class="service-item" *ngIf="currentRequestData.kitchen">
+  <i class="service-icon">🏠</i>
+  <span>
+    <span>küchen:</span>
+    <!-- Check if each kitchen service is selected and display them together -->
+    <span *ngIf="currentRequestData.kitchen.assemblage">• montage</span>
+    <span *ngIf="currentRequestData.kitchen.dessemblage">• demontage</span>
+    <span *ngIf="currentRequestData.kitchen.transportKitchen">• transport</span>
+    
+    <!-- If all three are selected, display the combined string -->
+  
+  </span>
+</div>
+        </div>
+      </div>
+
+      <!-- Price Table -->
+      <div class="items-section">
+        <h3>Inventar und Preisaufstellung</h3>
+        
+        <div class="summary-table">
+          <table class="price-table">
+            <thead>
+              <tr>
+                <th>Position</th>
+                <th>Beschreibung</th>
+                <th>Menge/Volumen</th>
+                <th>Einzelpreis</th>
+                <th>Gesamtpreis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Transportvolumen</td>
+                <td>{{ currentRequestData.totalVolumeM3.toFixed(2) || '0.00' }} m³</td>
+                <td>35,00 €/m³</td>
+                <td>{{ (currentRequestData.totalVolumeM3 * 35).toFixed(2) }} €</td>
+              </tr>
+              
+              <tr *ngIf="currentRequestData.numberOfKartons > 0">
+                <td>2</td>
+                <td>Umzugskartons</td>
+                <td>{{ currentRequestData.numberOfKartons }} Stk.</td>
+                <td>2,75 €</td>
+                <td>{{ (currentRequestData.numberOfKartons * 2.75).toFixed(2) }} €</td>
+              </tr>
+
+              <tr *ngIf="currentRequestData.distanceKm > 20">
+                <td>3</td>
+                <td>Kilometerpauschale (über 20km)</td>
+                <td>{{ currentRequestData.distanceKm - 20 }} km</td>
+                <td>2,00 €/km</td>
+                <td>{{ ((currentRequestData.distanceKm - 20) * 2).toFixed(2) }} €</td>
+              </tr>
+
+              <tr>
+                <td>4</td>
+                <td>Etagen Abfahrt {{ currentRequestData.withElevatorDepart ? '(mit Aufzug)' : '(ohne Aufzug)' }}</td>
+                <td>{{ currentRequestData.numberOfEtagesDepart }} Etagen</td>
+                <td>{{ currentRequestData.withElevatorDepart ? '25,00' : '50,00' }} €</td>
+                <td>{{ (currentRequestData.numberOfEtagesDepart * (currentRequestData.withElevatorDepart ? 25 : 50)).toFixed(2) }} €</td>
+              </tr>
+
+              <tr>
+                <td>5</td>
+                <td>Etagen Ankunft {{ currentRequestData.withElevatorArrival ? '(mit Aufzug)' : '(ohne Aufzug)' }}</td>
+                <td>{{ currentRequestData.numberOfEtagesArrival }} Etagen</td>
+                <td>{{ currentRequestData.withElevatorArrival ? '25,00' : '50,00' }} €</td>
+                <td>{{ (currentRequestData.numberOfEtagesArrival * (currentRequestData.withElevatorArrival ? 25 : 50)).toFixed(2) }} €</td>
+              </tr>
+
+              <tr *ngIf="currentRequestData.withDemontage">
+                <td>6</td>
+                <td>Demontage</td>
+                <td>1x</td>
+                <td>100,00 €</td>
+                <td>100,00 €</td>
+              </tr>
+
+              <tr *ngIf="currentRequestData.withMontage">
+                <td>7</td>
+                <td>Montage</td>
+                <td>1x</td>
+                <td>150,00 €</td>
+                <td>150,00 €</td>
+              </tr>
+
+              <tr *ngIf="currentRequestData.kitchen">
+                <td>8</td>
+               <td>
+                <span>Küchen:</span>
+  <span *ngIf="currentRequestData.kitchen.assemblage">• montage</span>
+  <span *ngIf="currentRequestData.kitchen.dessemblage">• demontage</span>
+  <span *ngIf="currentRequestData.kitchen.transportKitchen">• transport</span>
+  
+  <!-- If all three are selected, combine them -->
+
+</td>
+
+                <td>1x</td>
+                <td>{{ currentRequestData.kitchen.price.toFixed(2) }} €</td>
+                <td>{{ currentRequestData.kitchen.price.toFixed(2) }} €</td>
+              </tr>
+
+              <tr *ngIf="!currentRequestData.withParkPlatzDepart">
+                <td>9</td>
+                <td>Parkplatz Abfahrt (nicht vorhanden)</td>
+                <td>1x</td>
+                <td>70,00 €</td>
+                <td>70,00 €</td>
+              </tr>
+
+              <tr *ngIf="!currentRequestData.withParkPlatzArrival">
+                <td>10</td>
+                <td>Parkplatz Ankunft (nicht vorhanden)</td>
+                <td>1x</td>
+                <td>70,00 €</td>
+                <td>70,00 €</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Rooms Detail -->
+        <div class="rooms-detail" *ngIf="currentRequestData.rooms && currentRequestData.rooms.length > 0">
+          <h4>Detailaufstellung nach Zimmern</h4>
+          <div class="room-section" *ngFor="let room of currentRequestData.rooms; let i = index">
+            <h5 class="room-title">{{ getRoomName(room.room.id_room) }}</h5>
+            <div class="room-items" *ngIf="room.elements && room.elements.length > 0">
+              <table class="room-table">
+                <thead>
+                  <tr>
+                    <th>Gegenstand</th>
+                    <th>Breite (cm)</th>
+                    <th>Höhe (cm)</th>
+                    <th>Länge (cm)</th>
+                    <th>Volumen (m³)</th>
+                    <th>Preis (€)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of room.elements">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.width }}</td>
+                    <td>{{ item.height }}</td>
+                    <td>{{ item.length }}</td>
+                    <td>{{ item.q2?.toFixed(3) }}</td>
+                    <td>{{ item.price?.toFixed(2) }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total Section -->
+        <div class="total-section">
+          <div class="total-row subtotal">
+            <span class="total-label">Zwischensumme:</span>
+            <span class="total-value">{{ currentRequestData.totalPrice.toFixed(2) }} €</span>
+          </div>
+          <div class="total-row tax">
+            <span class="total-label">MwSt. (19%):</span>
+            <span class="total-value">{{ (currentRequestData.totalPrice * 0.19).toFixed(2) }} €</span>
+          </div>
+          <div class="total-row final-total">
+            <span class="total-label">Gesamtsumme:</span>
+            <span class="total-value">{{ (currentRequestData.totalPrice * 1.19).toFixed(2) }} €</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="quote-footer">
+        <div class="footer-section">
+          <h4>Zahlungsbedingungen</h4>
+          <p>Zahlung innerhalb von 14 Tagen nach Rechnungsstellung ohne Abzug.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Gültigkeit</h4>
+          <p>Dieses Angebot ist 30 Tage gültig.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Hinweise</h4>
+          <p>Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer.</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn btn-primary" onclick="window.print()">
+          <i class="fas fa-download"></i> PDF Herunterladen
+        </button>
+        <button class="btn btn-secondary" onclick="window.print()">
+          <i class="fas fa-print"></i> Drucken
+        </button>
+        <button class="btn btn-success" (click)="sendByEmail()">
+          <i class="fas fa-envelope"></i> Per Email senden
+        </button>
+        <button class="btn btn-outline" (click)="closeQuote()">
+          <i class="fas fa-times"></i> Schließen
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Start Footer Top Area -->
+<app-footerFront></app-footerFront>
+<!-- End Footer Bottom Area -->
+
+<!-- Start Go Top Area -->
+<div class="go-top">
+    <i class='bx bx-chevrons-up bx-fade-up'></i>
+    <i class='bx bx-chevrons-up bx-fade-up'></i>
+</div>
+<!-- End Go Top Area -->
+</body>
+</html>

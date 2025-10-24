@@ -1,0 +1,62 @@
+.navbar-brand img {
+  width: 160px; /* Ajustez la largeur en pixels */
+  height: 80px; /* Conserve les proportions de l'image */
+}
+
+
+/* Cache l'en-tête du haut lors du défilement */
+.header-style-four.hidden {
+  display: none;
+}
+
+.brand-area {
+  background-color: #f8f9fa; /* Couleur de fond de la zone de marque */
+}
+
+.brand-item {
+  padding: 10px;
+}
+
+.brand-item img {
+  max-width: 150px; /* Ajustez la taille de l'image selon vos besoins */
+  margin: auto;
+}
+
+
+
+/* Menu transparent au départ */
+.navbar-area {
+  background-color: transparent; /* Fond transparent par défaut */
+  transition: background-color 0.3s ease; /* Transition douce */
+}
+
+/* Fond gris très foncé lors du défilement */
+.navbar-area.scrolled {
+  background-color: rgba(30, 30, 30, 0.95); /* Gris très foncé */
+}
+
+/* Cacher .header-style-four lors du défilement */
+.header-style-four.hidden {
+  display: none;
+}
+
+.custom-carousel .carousel-control-prev-icon::before,
+.custom-carousel .carousel-control-next-icon::before {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  opacity: 0.8 !important;
+  border-radius: 50%;
+  content: ""; /* S'assure que le pseudo-élément est présent */
+}
+
+.custom-carousel .carousel-control-prev-icon,
+.custom-carousel .carousel-control-next-icon {
+  width: 30px !important;
+  height: 30px !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 50% !important;
+  opacity: 0.8 !important;
+}
+
+.section-title {
+  text-align: center;
+}

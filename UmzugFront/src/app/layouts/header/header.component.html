@@ -1,0 +1,87 @@
+<!-- Start Header Area -->
+<header class="header-area-four six fixed-top">
+    <!-- Start Top Header Area -->
+    <div class="header-style-four">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 col-md-5">
+                    <div class="header-left-content">
+                        <ul>
+                            <li *ngIf="listSettings.length > 0">
+                                <a href="tel:{{ listSettings[0].telephone }}">
+                                    <i class="bx bx-phone-call"></i>
+                                    {{ listSettings[0].telephone }}
+                                </a>
+                            </li>
+                            <li *ngIf="listSettings.length > 0">
+                                <a href="mailto:{{ listSettings[0].email }}">
+                                    <i class="bx bx-envelope"></i>
+                                    {{ listSettings[0].email }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-7">
+                    <div class="header-right-content">
+                        
+                        <ul class="social-links">
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank">
+                                    <i class="bx bxl-facebook"></i>
+                                </a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Top Header Area -->
+
+    <!-- Start Prevoz Navbar Area -->
+    <div class="prevoz-nav-style prevoz-nav-style-four">
+        <div class="navbar-area">
+            <!-- Menu For Mobile Device -->
+            <div class="mobile-nav">
+                <a routerLink="" class="logo">
+                    <img src="assets/images/Sam24GmbH.png" alt="Logo">
+                </a>
+            </div>
+            <!-- Menu For Desktop Device -->
+            <div class="main-nav">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <div class="container">
+                        <a class="navbar-brand" *ngIf="listSettings.length > 0">
+                            <img [src]="listSettings[0].logo" alt="Logo" width="auto" height="auto">
+                        </a>
+                        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                            <ul class="navbar-nav m-auto">
+                                <li class="nav-item">
+                                     <a routerLink="" class="nav-link dropdown-toggle">
+                                        Startseite
+                                    </a>
+                                    
+                                </li>
+                                 <li class="nav-item">
+                                    <a routerLink="/umzugFormular" class="nav-link">Umzugs-Formular</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink="/services" class="nav-link">Leistungen</a>
+                                </li>
+                               
+                                <li class="nav-item">
+                                    <a routerLink="/contact" class="nav-link">Kontakt</a>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- End Prevoz Navbar Area -->
+</header>
+<!-- End Header Area -->

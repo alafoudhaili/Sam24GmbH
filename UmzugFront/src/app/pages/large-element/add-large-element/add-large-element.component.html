@@ -1,0 +1,78 @@
+<app-breadcrumbs
+        title="Add Large Element"
+        [breadcrumbItems]="breadCrumbItems">
+</app-breadcrumbs>
+
+<div class="container mt-4">
+    <div class="card" style="padding: 20px; margin: 10px;">
+        <div class="card-body">
+            <form
+                    [formGroup]="addLargeElementForm"
+                    (ngSubmit)="checkValidityAndSubmit()"
+                    novalidate>
+
+                <!-- Name -->
+                <div class="mb-4">
+                    <label class="form-label" for="name">Name</label>
+                    <input
+                            type="text"
+                            id="name"
+                            class="form-control"
+                            formControlName="name"
+                            placeholder="Enter element name" />
+                    <div
+                            *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched)"
+                            class="alert alert-danger mt-2">
+                        <div *ngIf="f['name'].errors?.['required']">
+                            Name field is required!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price -->
+                <div class="mb-4">
+                    <label class="form-label" for="price">Price (€)</label>
+                    <input
+                            type="number"
+                            id="price"
+                            class="form-control"
+                            formControlName="price"
+                            step="0.01"
+                            min="0"
+                            placeholder="e.g. 123.45" />
+                    <div
+                            *ngIf="f['price'].invalid && (f['price'].dirty || f['price'].touched)"
+                            class="alert alert-danger mt-2">
+                        <div *ngIf="f['price'].errors?.['required']">
+                            Price field is required!
+                        </div>
+                        <div *ngIf="f['price'].errors?.['pattern']">
+                            Please enter a valid price (e.g. 123.45).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="row mt-4">
+                    <div class="col-md-12 text-center">
+                        <div class="d-flex justify-content-center">
+                            <button
+                                    type="submit"
+                                    class="btn btn-lg btn-success edit-item-btn smaller-btn">
+                                Add
+                            </button>
+                            <div class="mx-4"></div>
+                            <button
+                                    type="button"
+                                    class="btn btn-lg btn-danger remove-item-btn smaller-btn"
+                                    (click)="list()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

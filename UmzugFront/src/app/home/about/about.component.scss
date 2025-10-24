@@ -1,0 +1,40 @@
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.navbar-brand img {
+  width: 160px; /* Ajustez la largeur en pixels */
+  height: 80px; /* Conserve les proportions de l'image */
+}
+
+
+/* Cache l'en-tête du haut lors du défilement */
+.header-style-four.hidden {
+  display: none;
+}
+
+
+/* Menu transparent au départ */
+.navbar-area {
+  background-color: transparent; /* Fond transparent par défaut */
+  transition: background-color 0.3s ease; /* Transition douce */
+}
+
+/* Fond gris très foncé lors du défilement */
+.navbar-area.scrolled {
+  background-color: rgba(30, 30, 30, 0.95); /* Gris très foncé */
+}
+
+/* Cacher .header-style-four lors du défilement */
+.header-style-four.hidden {
+  display: none;
+}
+
+
+

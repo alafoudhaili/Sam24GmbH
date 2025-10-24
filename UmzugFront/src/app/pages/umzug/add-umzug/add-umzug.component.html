@@ -1,0 +1,527 @@
+<!-- umzug-form.component.html -->
+<div class="max-w-6xl mx-auto p-6 bg-white">
+  <!-- Header -->
+   <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-lg mb-8">
+    <div class="flex justify-between items-center">
+      <div>
+        <h1 class="text-3xl font-bold mb-2">{{ pageTitle }}</h1>
+        <p class="text-blue-100">
+          {{ isEditMode ? 'Bearbeiten Sie Ihre Umzug Anfrage' : 'Berechnen Sie den Preis für Ihren Umzug' }}
+        </p>
+      </div>
+      <div *ngIf="isEditMode" class="text-right">
+        <span class="inline-block bg-yellow-500 text-yellow-900 px-3 py-1 rounded-full text-sm font-medium">
+          <i class="ri-edit-line mr-1"></i>Bearbeitungsmodus
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="flex justify-center items-center py-8">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+    <span class="ml-3 text-gray-600">{{ isEditMode ? 'Daten werden geladen...' : 'Wird geladen...' }}</span>
+  </div>
+
+  <form [formGroup]="umzugForm" (ngSubmit)="onSubmit()" class="space-y-8" *ngIf="!loading">
+    
+    <!-- Client Information -->
+    <div class="bg-gray-50 p-6 rounded-lg">
+      <h2 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fas fa-home mr-2"></i>
+        Kundendaten
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-2">Name *</label>
+          <input
+            type="text"
+            formControlName="clientName"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            [class.border-red-500]="isFieldInvalid('clientName')"
+            placeholder="Ihr vollständiger Name"
+          />
+          <div *ngIf="isFieldInvalid('clientName')" class="text-red-500 text-sm mt-1">
+            Name ist erforderlich
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Email *</label>
+          <input
+            type="email"
+            formControlName="clientEmail"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            [class.border-red-500]="isFieldInvalid('clientEmail')"
+            placeholder="ihre.email@beispiel.de"
+          />
+          <div *ngIf="isFieldInvalid('clientEmail')" class="text-red-500 text-sm mt-1">
+            Gültige Email ist erforderlich
+          </div>
+        </div>
+        <div>
+  <label class="block text-sm font-medium mb-2">Nummer *</label>
+  <input
+    type="text"
+    formControlName="phone"
+    class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+    [class.border-red-500]="umzugForm.get('phone')?.invalid && (umzugForm.get('phone')?.dirty || umzugForm.get('phone')?.touched)"
+    placeholder="Ihr vollständiger Nummer"
+  />
+  <div *ngIf="umzugForm.get('phone')?.invalid && (umzugForm.get('phone')?.dirty || umzugForm.get('phone')?.touched)" class="text-red-500 text-sm mt-1">
+    <div *ngIf="umzugForm.get('phone')?.errors?.['required']">Nummer ist erforderlich</div>
+    <div *ngIf="umzugForm.get('phone')?.errors?.['pattern']">Ungültige Nummer. Bitte eine gültige Telefonnummer eingeben, z.B. +491234567890.</div>
+  </div>
+        </div>
+      <div>
+  <label class="block text-sm font-medium mb-2">Umzugsdatum *</label>
+  <input
+    type="datetime-local"
+    formControlName="umzugdate"
+    class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+    [class.border-red-500]="isFieldInvalid('umzugdate')"
+  />
+  <div *ngIf="isFieldInvalid('umzugdate')" class="text-red-500 text-sm mt-1">
+    Umzugsdatum ist erforderlich
+  </div>
+</div>
+      </div>
+    </div>
+
+    <!-- Locations -->
+    <div class="bg-gray-50 p-6 rounded-lg">
+      <h2 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fas fa-map-marker-alt mr-2"></i>
+        Standorte
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-2">Abfahrtsort *</label>
+          <input
+            type="text"
+            formControlName="departPoint"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            [class.border-red-500]="isFieldInvalid('departPoint')"
+            placeholder="Startadresse"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Ankunftsort *</label>
+          <input
+            type="text"
+            formControlName="arrivalPoint"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            [class.border-red-500]="isFieldInvalid('arrivalPoint')"
+            placeholder="Zieladresse"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Entfernung (km)</label>
+          <input
+            type="number"
+            formControlName="distanceKm"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            min="0"
+            step="0.1"
+            placeholder="0"
+          />
+          <p *ngIf="getDistanceExtraPrice() > 0" class="text-sm text-orange-600 mt-1">
+            Zusätzliche Kosten: {{ getDistanceExtraPrice().toFixed(2) }}€
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Building Details -->
+    <div class="bg-gray-50 p-6 rounded-lg">
+      <h2 class="text-xl font-semibold mb-4">Gebäude Details</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-2">Anzahl Etagen Abfahrtsort</label>
+          <input
+            type="number"
+            formControlName="numberOfEtagesDepart"
+            class="w-200 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            min="1"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Anzahl Etagen Ankunftsort</label>
+          <input
+            type="number"
+            formControlName="numberOfEtagesArrival"
+            class="w-200 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            min="1"
+          />
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="elevatorDepart"
+            formControlName="withElevatorDepart"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="elevatorDepart" class="ml-2 text-sm font-medium">
+            Mit Aufzug Abfahrtsort ({{ ETAGE_PRICE_WITH_ELEVATOR }}€/Etage statt {{ ETAGE_PRICE_WITHOUT_ELEVATOR }}€/Etage)
+          </label>
+                  </div>
+        <div class="flex items-center">
+
+          <input
+            type="checkbox"
+            id="elevatorArrival"
+            formControlName="withElevatorArrival"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="elevatorArrival" class="ml-2 text-sm font-medium">
+            Mit Aufzug Ankunftsort ({{ ETAGE_PRICE_WITH_ELEVATOR }}€/Etage statt {{ ETAGE_PRICE_WITHOUT_ELEVATOR }}€/Etage)
+          </label>
+                            </div>
+
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="parkplatzDepart"
+            formControlName="withParkPlatzDepart"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="parkplatzDepart" class="ml-2 text-sm font-medium">
+            Mit Park Platz Abfahrtsort (Frei , Ohne Park Platz +{{WITHOUT_PARKPLATZ_PRICE}}€ )
+          </label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="parkplatzArrival"
+            formControlName="withParkPlatzArrival"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="parkplatzArrival" class="ml-2 text-sm font-medium">
+            Mit Park Platz Ankunftsort (Frei , Ohne Park Platz +{{WITHOUT_PARKPLATZ_PRICE}}€ )
+          </label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="demontage"
+            formControlName="withDemontage"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="demontage" class="ml-2 text-sm font-medium">
+            Mit Demontage (+{{ DEMONTAGE_PRICE }}€)
+          </label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="demontage"
+            formControlName="withMontage"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="demontage" class="ml-2 text-sm font-medium">
+            Mit Montage (+{{ MONTAGE_PRICE }}€)
+          </label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="demontage"
+            formControlName="withDemontageLamp"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="demontage" class="ml-2 text-sm font-medium">
+            Mit Demontage Lamp (+{{ DEMONTAGELAMP_PRICE }}€)
+          </label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            id="demontage"
+            formControlName="withMontageLamp"
+            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="demontage" class="ml-2 text-sm font-medium">
+            Mit Montage Lamp (+{{ MONTAGELAMP_PRICE }}€)
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kartons -->
+    <div class="bg-gray-50 p-6 rounded-lg">
+      <h2 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fas fa-box mr-2"></i>
+        Kartons
+      </h2>
+      <div class="flex items-center space-x-4">
+        <label class="text-sm font-medium">Anzahl Kartons (je {{ PRICE_PER_KARTON }}€):</label>
+        <input
+          type="number"
+          formControlName="numberOfKartons"
+          class="w-24 p-2 border rounded focus:ring-2 focus:ring-blue-500"
+          min="0"
+        />
+        <span class="text-sm text-gray-600">
+          = {{ getKartonsPrice().toFixed(2) }}€
+        </span>
+      </div>
+    </div>
+
+    <!-- Kitchen Services -->
+    <div class="bg-gray-50 p-6 rounded-lg" *ngIf="kitchens.length > 0">
+      <h2 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fas fa-tools mr-2"></i>
+        Küchen Service
+      </h2>
+      <div class="space-y-3">
+        <div class="flex items-center">
+          <input
+            type="radio"
+            id="no-kitchen"
+            name="kitchen"
+            [value]="null"
+            formControlName="kitchen"
+            class="w-4 h-4 text-blue-600"
+          />
+          <label for="no-kitchen" class="ml-2 text-sm font-medium">
+            Kein Küchen Service
+          </label>
+        </div>
+        <div *ngFor="let kitchen of kitchens; let i = index" class="flex items-center">
+          <input
+            type="radio"
+            [id]="'kitchen-' + kitchen.id_kitchen"
+            name="kitchen"
+            [value]="kitchen"
+            formControlName="kitchen"
+            class="w-4 h-4 text-blue-600"
+          />
+          <label [for]="'kitchen-' + kitchen.id_kitchen" class="ml-2 text-sm">
+            <span class="font-medium">{{ kitchen.price }}€</span> 
+            <div class="text-xs text-gray-600">
+              <span *ngIf="kitchen.assemblage">• Montage </span>
+              <span *ngIf="kitchen.dessemblage">• Demontage </span>
+              <span *ngIf="kitchen.transportKitchen">• Transport</span>
+                            <span *ngIf="kitchen.newKitchen" style="font-weight: bold;">• Neu</span>
+                            <span *ngIf="!kitchen.newKitchen" style="font-weight: bold;">• Alt</span>
+
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Room Selection -->
+    <div class="bg-gray-50 p-6 rounded-lg" *ngIf="rooms.length > 0">
+      <h2 class="text-xl font-semibold mb-4">Räume auswählen</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <button
+          *ngFor="let room of rooms"
+          type="button"
+          class="p-3 rounded-lg border-2 transition-colors"
+          [class.border-blue-500]="selectedRooms[room.id_room]"
+          [class.bg-blue-50]="selectedRooms[room.id_room]"
+          [class.text-blue-700]="selectedRooms[room.id_room]"
+          [class.border-gray-300]="!selectedRooms[room.id_room]"
+          [class.bg-white]="!selectedRooms[room.id_room]"
+          [class.hover:border-gray-400]="!selectedRooms[room.id_room]"
+          (click)="toggleRoom(room.id_room)"
+        >
+          {{ room.name }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobels for selected rooms -->
+    <div
+      *ngFor="let room of getSelectedRoomsList()"
+      class="bg-white border-2 border-blue-200 rounded-lg p-6"
+    >
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-blue-800">{{ room.name }}</h3>
+        <button
+          type="button"
+          class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 flex items-center"
+          (click)="addMobelToRoom(room.id_room)"
+        >
+          <i class="fas fa-plus mr-1"></i>
+          Möbel hinzufügen
+        </button>
+      </div>
+      
+      <div *ngIf="!mobelsForRooms[room.id_room] || mobelsForRooms[room.id_room].length === 0" class="text-gray-500 italic">
+        Keine Möbel hinzugefügt
+      </div>
+      
+      <div
+        *ngFor="let mobel of mobelsForRooms[room.id_room]; let mobelIndex = index"
+        class="bg-gray-50 p-4 rounded border mb-3"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+           <div>
+            <label class="block text-sm font-medium mb-1">Anzahl der Möbel</label>
+            <input
+              type="number"
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              [value]="mobel.numberElement"
+    (input)="handleInputChange(room.id_room, mobelIndex, 'numberElement', $event)"
+ min="1"
+              step="1"            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Möbel Name</label>
+            <input
+              type="text"
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              [value]="mobel.name"
+    (input)="handleInputChange(room.id_room, mobelIndex, 'name', $event)"
+              placeholder="z.B. Sofa, Tisch..."
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Breite (cm)</label>
+            <input
+              type="number"
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              [value]="mobel.width"
+    (input)="handleInputChange(room.id_room, mobelIndex, 'width', $event)"
+              min="0"
+              step="0.1"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Höhe (cm)</label>
+            <input
+              type="number"
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              [value]="mobel.height"
+    (input)="handleInputChange(room.id_room, mobelIndex, 'height', $event)"
+              min="0"
+              step="0.1"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Länge (cm)</label>
+            <input
+              type="number"
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+              [value]="mobel.length"
+    (input)="handleInputChange(room.id_room, mobelIndex, 'length', $event)"
+              min="0"
+              step="0.1"
+            />
+          </div>
+          <div class="flex items-center space-x-2">
+            <div class="text-sm text-gray-600">
+              {{ (mobel.q2 || 0).toFixed(3) }} m²
+            </div>
+             <div class="text-sm text-gray-600">
+                 {{ (mobel.price || 0).toFixed(2) }}€
+            </div>
+            <button
+              type="button"
+              class="bg-red-500 text-white p-2 rounded hover:bg-red-600"
+              (click)="removeMobelFromRoom(room.id_room, mobelIndex)"
+            >
+              <i class="ri-delete-bin-line"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Price Summary -->
+    <div class="bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-200 rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-4 flex items-center text-green-800">
+        <i class="fas fa-calculator mr-2"></i>
+        Preisübersicht
+      </h2>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between">
+          <span>Möbel Volumen ({{ totalVolume.toFixed(3) }} m² × {{ PRICE_PER_M3 }}€):</span>
+          <span>{{ (totalVolume * PRICE_PER_M3).toFixed(2) }}€</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Kartons ({{ umzugForm.get('numberOfKartons')?.value || 0 }} × {{ PRICE_PER_KARTON }}€):</span>
+          <span>{{ getKartonsPrice().toFixed(2) }}€</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Entfernung ({{ getDistanceExtraPrice() > 0 ? (umzugForm.get('distanceKm')?.value - MIN_DISTANCE_FREE) + 'km × 2€' : 'kostenlos ≤ 20km' }}):</span>
+          <span>{{ getDistanceExtraPrice().toFixed(2) }}€</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Etagen Abfahrtsort ({{ umzugForm.get('numberOfEtagesDepart')?.value || 1 }} × {{ umzugForm.get('withElevatorDepart')?.value ? ETAGE_PRICE_WITH_ELEVATOR + '€ (mit Aufzug)' : ETAGE_PRICE_WITHOUT_ELEVATOR + '€ (ohne Aufzug)' }}):</span>
+          <span>{{ getEtagePriceDepart().toFixed(2) }}€</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Etagen Ankunftsort ({{ umzugForm.get('numberOfEtagesArrival')?.value || 1 }} × {{ umzugForm.get('withElevatorArrival')?.value ? ETAGE_PRICE_WITH_ELEVATOR + '€ (mit Aufzug)' : ETAGE_PRICE_WITHOUT_ELEVATOR + '€ (ohne Aufzug)' }}):</span>
+          <span>{{ getEtagePriceArrival().toFixed(2) }}€</span>
+        </div>
+        <div *ngIf="umzugForm.get('withDemontage')?.value" class="flex justify-between">
+          <span>Demontage:</span>
+          <span>{{ DEMONTAGE_PRICE.toFixed(2) }}€</span>
+        </div>
+         <div *ngIf="!umzugForm.get('withParkPlatzDepart')?.value" class="flex justify-between">
+          <span>Park Platz Abfahrtsort:</span>
+          <span>{{ WITHOUT_PARKPLATZ_PRICE.toFixed(2) }}€</span>
+        </div>
+        <div *ngIf="!umzugForm.get('withParkPlatzArrival')?.value" class="flex justify-between">
+          <span>Park Platz Ankunftsort:</span>
+          <span>{{ WITHOUT_PARKPLATZ_PRICE.toFixed(2) }}€</span>
+        </div>
+        <div *ngIf="umzugForm.get('withMontage')?.value" class="flex justify-between">
+          <span>Montage:</span>
+          <span>{{ MONTAGE_PRICE.toFixed(2) }}€</span>
+        </div>
+        <div *ngIf="umzugForm.get('withDemontageLamp')?.value" class="flex justify-between">
+          <span>Demontage Lamp:</span>
+          <span>{{ DEMONTAGELAMP_PRICE.toFixed(2) }}€</span>
+        </div>
+        <div *ngIf="umzugForm.get('withMontageLamp')?.value" class="flex justify-between">
+          <span>Montage Lamp:</span>
+          <span>{{ MONTAGELAMP_PRICE.toFixed(2) }}€</span>
+        </div>
+        <div *ngIf="umzugForm.get('kitchen')?.value" class="flex justify-between">
+ <span>
+    Küchen Service:
+    <span class="text-sm">
+      <span *ngIf="umzugForm.get('kitchen')?.value?.assemblage">• Montage </span>
+      <span *ngIf="umzugForm.get('kitchen')?.value?.dessemblage">• Demontage </span>
+      <span *ngIf="umzugForm.get('kitchen')?.value?.transportKitchen">• Transport</span>
+       <span *ngIf="umzugForm.get('kitchen')?.value?.newKitchen" style="font-weight: bold;">• Neu</span>
+  <span *ngIf="!umzugForm.get('kitchen')?.value?.newKitchen" style="font-weight: bold;">• Alt</span>
+    </span>
+  </span>          <span>{{ umzugForm.get('kitchen')?.value?.price?.toFixed(2) }}€</span>
+        </div>
+        <hr class="border-green-300" />
+        <div class="flex justify-between font-bold text-lg text-green-800">
+          <span>Gesamtpreis:</span>
+          <span>{{ totalPrice.toFixed(2) }}€</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex justify-between items-center">
+      <button
+        type="button"
+        class="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        (click)="cancel()"
+      >
+        <i class="ri-close-line mr-1"></i>
+        {{ isEditMode ? 'Abbrechen' : 'Zurück' }}
+      </button>
+      
+      <button
+        type="submit"
+        class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        [disabled]="loading || umzugForm.invalid"
+      >
+        <span *ngIf="loading" class="mr-2">
+          <i class="ri-loader-4-line animate-spin"></i>
+        </span>
+        <i *ngIf="!loading" class="{{ isEditMode ? 'ri-save-line' : 'ri-add-line' }} mr-1"></i>
+        {{ loading ? (isEditMode ? 'Wird aktualisiert...' : 'Wird gespeichert...') : (isEditMode ? 'Änderungen speichern' : 'Umzug speichern') }}
+      </button>
+    </div>
+  </form>
+</div>

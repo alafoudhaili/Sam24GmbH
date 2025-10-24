@@ -1,0 +1,229 @@
+<app-breadcrumbs
+        title="Möbelliste"
+        [breadcrumbItems]="breadCrumbItems">
+</app-breadcrumbs>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-body p-3">
+                <div id="elementList">
+                    <div class="row g-2 mb-3">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-success ms-auto" (click)="addElement()">
+                                <i class="ri-add-line align-bottom me-1"></i> Hinzufügen
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                            <tr class="bg-light text-muted">
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Abmessungen</th>
+                                <th>Q2</th>
+                                <th>RE</th>
+
+                                <th>Preis (€)</th>
+                                <th>Aktionen</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let element of listElements | slice: (currentPage - 1) * itemsPerPage : currentPage * itemsPerPage">
+                                <td>{{ element.id_element }}</td>
+                                <td>{{ element.name }}</td>
+                                <td>
+                                    <div class="d-flex flex-wrap gap-2">
+    <span *ngIf="element.width" class="badge bg-primary">
+      <i class="ri-arrow-right-line me-1"></i> W: {{ element.width | number:'1.2-2' }}
+    </span>
+                                        <span *ngIf="element.height" class="badge bg-success">
+      <i class="ri-arrow-up-line me-1"></i> H: {{ element.height | number:'1.2-2' }}
+    </span>
+                                        <span *ngIf="element.length" class="badge bg-warning text-dark">
+      <i class="ri-arrow-left-line me-1"></i> L: {{ element.length | number:'1.2-2' }}
+    </span>
+                                    </div>
+                                </td>
+                                                                <td>{{ element.q2 }}</td>
+                                                                <td>{{ element.re }}</td>
+
+                                <td>{{ element.price | number:'1.2-2' }}</td>
+                                <td>
+                                    <a
+                                            class="text-primary me-2"
+                                            style="cursor: pointer;"
+                                            (click)="openModal(element, content)">
+                                        <i class="ri-pencil-fill fs-16"></i>
+                                    </a>
+                                    <a
+                                            class="text-danger"
+                                            style="cursor: pointer;"
+                                            (click)="confirmDelete(deleteModal, element.id_element)">
+                                        <i class="ri-delete-bin-5-fill fs-16"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-3">
+                        <ngb-pagination
+                                [collectionSize]="length"
+                                [(page)]="currentPage"
+                                [pageSize]="itemsPerPage"
+                                [maxSize]="5"
+                                [rotate]="true"
+                                (pageChange)="pageChanged($event)">
+                        </ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<ng-template #content let-modal>
+    <form [formGroup]="editElementForm" (ngSubmit)="saveElement()" novalidate>
+        <div class="modal-header bg-light p-3">
+            <h5 class="modal-title">Edit Element (ID: {{ selectedElement.id_element }})</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body">
+
+            <!-- Name -->
+            <div class="mb-3">
+                <label for="nameInput" class="form-label">Name*</label>
+                <input
+                        type="text"
+                        id="nameInput"
+                        class="form-control"
+                        formControlName="name"
+                        placeholder="Enter element name" />
+                <div *ngIf="submitted && f['name'].invalid" class="text-danger small mt-1">
+                    <div *ngIf="f['name'].errors?.['required']">Das Namensfeld ist erforderlich!</div>
+                    <div *ngIf="f['name'].errors?.['minlength']">  Der Name muss mindestens 3 Zeichen lang sein.</div>
+                </div>
+            </div>
+
+            <!-- Dimensions -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label" for="widthInput">Breite*</label>
+                    <input
+                            type="number"
+                            id="widthInput"
+                            class="form-control"
+                            formControlName="width"
+                            step="0.01"
+                            min="0"
+                            placeholder="Width"
+                             (keyup)="calculateQ2AndPrice()"
+                                (input)="calculateQ2AndPrice()" />
+                    <div *ngIf="submitted && f['width'].invalid" class="text-danger small mt-1">
+                        <div *ngIf="f['width'].errors?.['pattern']">Bitte geben Sie eine gültige Zahl ein (z. B. 123,45).</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="heightInput">Höhe</label>
+                    <input
+                            type="number"
+                            id="heightInput"
+                            class="form-control"
+                            formControlName="height"
+                            step="0.01"
+                            min="0"
+                            placeholder="Height" (keyup)="calculateQ2AndPrice()"
+                                (input)="calculateQ2AndPrice()" />
+                    <div *ngIf="submitted && f['height'].invalid" class="text-danger small mt-1">
+                        <div *ngIf="f['height'].errors?.['pattern']">Bitte geben Sie eine gültige Zahl ein (z. B. 123,45).</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="lengthInput">Länge*</label>
+                    <input
+                            type="number"
+                            id="lengthInput"
+                            class="form-control"
+                            formControlName="length"
+                            step="0.01"
+                            min="0"
+                            placeholder="Length" 
+                            (keyup)="calculateQ2AndPrice()"
+                                (input)="calculateQ2AndPrice()"/>
+                    <div *ngIf="submitted && f['length'].invalid" class="text-danger small mt-1">
+                        <div *ngIf="f['length'].errors?.['pattern']">Bitte geben Sie eine gültige Zahl ein (z. B. 123,45).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Fields -->
+            <div class="row mb-3">
+           
+                <div class="col-md-6">
+                    <label class="form-label" for="q2Input">Q2</label>
+                    <input
+                            type="text"
+                            id="q2Input"
+                            class="form-control"
+                            formControlName="q2"
+                            placeholder="Q2"
+                            readonly />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="reInput">RE</label>
+                    <input
+                            type="text"
+                            id="reInput"
+                            class="form-control"
+                            formControlName="re"
+                            placeholder="RE"
+                            (keyup)="onReBlur()"
+                                (input)="onReBlur()" />
+                </div>
+            </div>
+
+            <!-- Price -->
+            <div class="mb-3">
+                <label class="form-label" for="priceInput">Preis (€)*</label>
+                <input
+                        type="number"
+                        id="priceInput"
+                        class="form-control"
+                        formControlName="price"
+                        step="0.01"
+                        min="0"
+                        placeholder="e.g. 123.45"
+                        readonly />
+               
+            </div>
+
+            <!-- Etat -->
+          
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Abbrechen</button>
+            <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
+    </form>
+</ng-template>
+
+<!-- Delete Confirmation Modal -->
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Bestätigung</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Sind Sie sicher, dass Sie dieses Element löschen möchten?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Abbrechen</button>
+        <button type="button" class="btn btn-danger" (click)="deleteElement(selectedElement.id_element)">Löschen</button>
+    </div>
+</ng-template>

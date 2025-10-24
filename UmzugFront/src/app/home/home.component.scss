@@ -1,0 +1,149 @@
+/* General header and layout styling */
+.header-area .top-header {
+  padding: 10px 0; /* Adjust the padding to minimize header height */
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Ensure the logo is on the left side */
+.header-left-content {
+  width: 80px; /* Fixed width */
+  height: 80px; /* Fixed height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff; /* Optional background color */
+  border-radius: 5px; /* Optional for rounded corners */
+}
+
+.header-left-content img {
+  max-width: 270%;
+  max-height: 280%;
+  object-fit: contain; /* Ensure image fits within the container */
+}
+
+
+/* Right-side container for buttons and language select */
+.header-right-content {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+  gap: 15px; /* Space between buttons and select */
+}
+
+/* Flex container for the whole row */
+.row.align-items-center {
+  display: flex;
+  justify-content: space-between; /* Space between logo and right-side elements */
+  align-items: center;
+  width: 100%;
+}
+
+/* Button Styles */
+.custom-btn-login,
+.custom-btn-register {
+  font-size: 14px;
+  padding: 8px 20px; /* Adjust padding for button height */
+  border-radius: 5px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+/* LOGIN button */
+.custom-btn-login {
+  border: 1px solid #1d9bf0; /* Blue border */
+  color: #1d9bf0; /* Blue text */
+  background-color: white; /* White background */
+}
+
+.custom-btn-login:hover {
+  background-color: #e0f3ff; /* Light blue hover effect */
+  color: #1d9bf0; /* Blue text */
+}
+
+/* REGISTER button */
+.custom-btn-register {
+  background-color: #1d9bf0; /* Blue background */
+  color: white; /* White text */
+  border: none; /* No border */
+}
+
+.custom-btn-register:hover {
+  background-color: #007acc; /* Darker blue on hover */
+}
+
+/* Language select box styling */
+.language-select {
+  padding: 8px 15px; /* Padding for the select box */
+  font-size: 14px; /* Font size */
+  border: 1px solid #ccc; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  background-color: white; /* Background color */
+  color: #333; /* Text color */
+  appearance: none; /* Remove default dropdown arrow */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="none" stroke="%23333" stroke-width="2" d="M10 4L6 8 2 4"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* Custom dropdown arrow */
+  background-size: 10px; /* Arrow size */
+}
+
+.language-select:hover,
+.language-select:focus {
+  border-color: #007acc; /* Border color on focus or hover */
+  outline: none; /* Remove default outline */
+}
+
+/* Ensure logo and buttons stay in one row, spaced out */
+.top-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Header height */
+.header-area {
+  height: auto;
+  padding: 10px 0; /* Reduce padding for smaller header */
+}
+
+/* Other existing styles */
+.mt-minus-70 {
+  margin-top: 0px !important; /* Adjust the margin as needed */
+}
+
+.white-text {
+  color: white;
+}
+
+/* Prevoz slider text styling */
+.prevoz-slider-text {
+  margin-top: 50px; /* Adjust as necessary */
+}
+
+/* Track area */
+.track-area {
+  padding-bottom: 100px;
+  margin-top: 0;
+}
+
+.track-area .tabs {
+  display: flex;
+  justify-content: center;
+  padding: 15px 0;
+}
+
+.track-area .tab_content {
+  margin-top: 0px; /* Reduce space between tabs and content */
+}
+
+.track-area .tab_content .tabs_item form {
+  margin-top: 0px;
+}
+
+.track-area h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+

@@ -1,0 +1,235 @@
+<!-- auth-page wrapper -->
+<div class="auth-page-wrapper auth-bg-cover py-5 d-flex justify-content-center align-items-center min-vh-100">
+    <div class="bg-overlay"></div>
+    <!-- auth-page content -->
+    <div class="auth-page-content overflow-hidden pt-lg-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card overflow-hidden m-0">
+                        <div class="row justify-content-center g-0">
+                            <div class="col-lg-6">
+                                <div class="p-lg-5 p-4 auth-one-bg h-100">
+                                    <div class="bg-overlay"></div>
+                                    <div class="position-relative h-100 d-flex flex-column">
+                                        <div class="mb-4">
+                                            <a routerLink="" class="d-block">
+                                                <h1 align="center" style="color: white;">XsupplY</h1>
+                                            </a>
+                                        </div>
+                                        <div class="mt-auto">
+                                            <div class="mb-3">
+                                                <i class="ri-double-quotes-l display-4 text-success"></i>
+                                            </div>
+                                            <ngb-carousel [showNavigationArrows]="showNavigationArrows">
+                                                <ng-template ngbSlide>
+                                                    <div class="carousel-inner text-center text-white-50 pb-5">
+                                                        <div class="carousel-item active">
+                                                            <p class="fs-15 fst-italic">" Great! Clean code, clean
+                                                                design, easy for customization. Thanks very much! "</p>
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+                                                <ng-template ngbSlide>
+                                                    <div class="carousel-inner text-center text-white-50 pb-5">
+                                                        <div class="carousel-item active">
+                                                            <p class="fs-15 fst-italic">" The theme is really great with
+                                                                an amazing customer support."</p>
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+                                                <ng-template ngbSlide>
+                                                    <div class="carousel-inner text-center text-white-50 pb-5">
+                                                        <div class="carousel-item active">
+                                                            <p class="fs-15 fst-italic">" Great! Clean code, clean
+                                                                design, easy for customization. Thanks very much! "</p>
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+                                            </ngb-carousel>
+                                            <!-- end carousel -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="p-lg-5 p-4">
+                                    <div>
+                                        <h5 class="text-primary" align="center">Create an XsupplY account!</h5>
+                                    </div>
+                                    <div class="mt-4">
+                                        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <label for="societe" class="form-label">Company <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="societe"
+                                                           placeholder="Company" required formControlName="societe">
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <label class="form-label">Phone Number <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="number" class="form-control" placeholder="Phone Number"
+                                                           required formControlName="telephone">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Country <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" placeholder="Country"
+                                                           required formControlName="pays">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <label for="useremail" class="form-label">Email <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="email" class="form-control" id="useremail"
+                                                           placeholder="Enter email address" required
+                                                           formControlName="email"
+                                                           [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                                                    <div class="invalid-feedback">
+                                                        Please enter email
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="prenom" class="form-label">First Name <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="prenom"
+                                                           placeholder="First Name" required
+                                                           formControlName="prenom">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="nom" class="form-label">Last Name <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="nom"
+                                                           placeholder="Last Name" required formControlName="nom">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="matriculeFiscale" class="form-label">Tax Registration Number <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="matriculeFiscale"
+                                                           placeholder="Tax Registration Number" required
+                                                           formControlName="matriculeFiscale">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Trade Register</label>
+                                                    <input type="file" (change)="onPdfFileChange($event)"
+                                                           class="form-control custom-file-input"
+                                                           formControlName="registerCommerce">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Profile's Photo</label>
+                                                    <input type="file" (change)="onFileChange($event)"
+                                                           class="form-control custom-file-input"
+                                                           formControlName="photoProfil">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Password <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="position-relative auth-pass-inputgroup">
+                                                        <input [type]="fieldTextType ? 'text' : 'password'"
+                                                               class="form-control pe-5 password-input"
+                                                               placeholder="Enter password" id="password-input"
+                                                               aria-describedby="passwordInput"
+                                                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required
+                                                               formControlName="password"
+                                                               [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                                                        <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
+                                                                type="button" id="password-addon"><i
+                                                                class="ri-eye-fill align-middle" [ngClass]="{'mdi-eye-off-outline': !fieldTextType, 'mdi-eye-outline': fieldTextType}"
+                                                                (click)="toggleFieldTextType()"></i></button>
+                                                        <div class="invalid-feedback">
+                                                            Please enter password
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="mb-3">
+                                                <label for="role" class="form-label">You are ?? <span class="text-danger">*</span></label>
+                                                <select class="form-control" id="role" formControlName="role" required>
+                                                    <option value="">Select a role</option>
+                                                    <option value="CAREER">CAREER</option>
+                                                    <option value="SHIPPER">SHIPPER</option>
+                                                    <option value="FORWARDER">FORWARDER</option>
+                                                    <option value="WAREHOUSER">WAREHOUSER</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree
+                                                    to the XsupplY
+                                                    <a href="javascript:void(0);"
+                                                       class="text-primary text-decoration-underline fst-normal fw-medium">Terms
+                                                        of Use</a></p>
+                                            </div>
+                                            <!--                                            <div id="password-contain" class="p-3 bg-light mb-2 rounded">-->
+                                            <!--                                                <h5 class="fs-13">Password must contain:</h5>-->
+                                            <!--                                                <p id="pass-length" class="invalid fs-12 mb-2">Minimum <b>8-->
+                                            <!--                                                    characters</b></p>-->
+                                            <!--                                                <p id="pass-lower" class="invalid fs-12 mb-2">At <b>lowercase</b>-->
+                                            <!--                                                    letter-->
+                                            <!--                                                    (a-z)</p>-->
+                                            <!--                                                <p id="pass-upper" class="invalid fs-12 mb-2">At least-->
+                                            <!--                                                    <b>uppercase</b>-->
+                                            <!--                                                    letter (A-Z)</p>-->
+                                            <!--                                                <p id="pass-number" class="invalid fs-12 mb-0">A least <b>number</b>-->
+                                            <!--                                                    (0-9)</p>-->
+                                            <!--                                            </div>-->
+                                            <div class="mt-4">
+                                                <button class="btn btn-success w-100" type="submit">Sign Up</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="mt-5 text-center">
+                                        <p class="mb-0">Already have an account ?
+                                            <a routerLink="/auth/login"
+                                               class="fw-semibold text-primary text-decoration-underline">
+                                                Signin
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end auth page content -->
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <p class="mb-0">&copy; {{ year }} XsupplY Created with <i class="mdi mdi-heart text-danger"></i>
+                            by Smart IT Partner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+</div>
+<!-- end auth-page-wrapper -->
+<!-- end auth-page-wrapper -->
+
+

@@ -1,0 +1,165 @@
+<app-breadcrumbs
+        title="Möbel hinzufügen"
+        [breadcrumbItems]="breadCrumbItems">
+</app-breadcrumbs>
+
+<div class="container mt-4">
+    <div class="card" style="padding: 20px; margin: 10px;">
+        <div class="card-body">
+            <form
+                    [formGroup]="addElementForm"
+                    (ngSubmit)="checkValidityAndSubmit()"
+                    novalidate>
+
+                <!-- Name -->
+                <div class="mb-4">
+                    <label class="form-label" for="name">Name*</label>
+                    <input
+                            type="text"
+                            id="name"
+                            class="form-control"
+                            formControlName="name"
+                            placeholder="Enter element name" />
+                    <div
+                            *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched)"
+                            class="alert alert-danger mt-2">
+                        <div *ngIf="f['name'].errors?.['required']">
+                            Das Namensfeld ist erforderlich!
+                        </div>
+                        <div *ngIf="f['name'].errors?.['minlength']">
+                            Der Name muss mindestens 3 Zeichen lang sein.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dimensions -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label class="form-label" for="width">Breite*</label>
+                        <input
+                                type="number"
+                                id="width"
+                                class="form-control"
+                                formControlName="width"
+                                step="0.01"
+                                min="0"
+                                placeholder="Width"
+                                (keyup)="calculateQ2AndPrice()"
+                                (input)="calculateQ2AndPrice()" />
+                        <div *ngIf="f['width'].invalid && (f['width'].dirty || f['width'].touched)"
+                             class="alert alert-danger mt-2">
+                            <div *ngIf="f['width'].errors?.['pattern']">
+                                Bitte geben Sie eine gültige Zahl ein (z. B. 123,45).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="height">Höhe*</label>
+                        <input
+                                type="number"
+                                id="height"
+                                class="form-control"
+                                formControlName="height"
+                                step="0.01"
+                                min="0"
+                                placeholder="Height" 
+                                (keyup)="calculateQ2AndPrice()"
+                                (input)="calculateQ2AndPrice()" />
+                        <div *ngIf="f['height'].invalid && (f['height'].dirty || f['height'].touched)"
+                             class="alert alert-danger mt-2">
+                            <div *ngIf="f['height'].errors?.['pattern']">
+                                Bitte geben Sie eine gültige Zahl ein (z. B. 123,45).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="length">Länge*</label>
+                        <input
+                                type="number"
+                                id="length"
+                                class="form-control"
+                                formControlName="length"
+                                step="0.01"
+                                min="0"
+                                placeholder="Length" 
+                                (keyup)="calculateQ2AndPrice()"
+                                (input)="calculateQ2AndPrice()" />
+                        <div *ngIf="f['length'].invalid && (f['length'].dirty || f['length'].touched)"
+                             class="alert alert-danger mt-2">
+                            <div *ngIf="f['length'].errors?.['pattern']">
+                                Bitte geben Sie eine gültige Zahl ein (z. B. 123,45).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Fields -->
+                <div class="row mb-4">
+                   
+                    <div class="col-md-6">
+                        <label class="form-label" for="q2">Q2</label>
+                        <input
+                                type="text"
+                                id="q2"
+                                class="form-control"
+                                formControlName="q2"
+                                placeholder="Q2"
+                                 readonly />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="q2">RE</label>
+                        <input
+                                type="text"
+                                id="re"
+                                class="form-control"
+                                formControlName="re"
+                                placeholder="RE"
+                                     (keyup)="onReBlur()"
+                                (input)="onReBlur()" />
+                    </div>
+                    <div class="col-md-12">
+
+                    <label class="form-label" for="price">Preis (€)*</label>
+                    <input
+                            type="number"
+                            id="price"
+                            class="form-control"
+                            formControlName="price"
+                            step="0.01"
+                            min="0"
+                            placeholder="e.g. 123.45"
+                             readonly />
+                  
+                    </div>
+                </div>
+
+                <!-- Price -->
+                
+
+                <!-- Etat -->
+               
+
+                <!-- Actions -->
+                <div class="row mt-4">
+                    <div class="col-md-12 text-center">
+                        <div class="d-flex justify-content-center">
+                            <button
+                                    type="submit"
+                                    class="btn btn-lg btn-success edit-item-btn smaller-btn">
+                                Hinzufügen
+                            </button>
+                            <div class="mx-4"></div>
+                            <button
+                                    type="button"
+                                    class="btn btn-lg btn-danger remove-item-btn smaller-btn"
+                                    (click)="list()">
+                                Abbrechen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

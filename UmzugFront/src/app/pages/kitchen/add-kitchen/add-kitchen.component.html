@@ -1,0 +1,141 @@
+<app-breadcrumbs
+  title="Küche hinzufügen"
+  [breadcrumbItems]="breadCrumbItems">
+</app-breadcrumbs>
+
+<div class="container mt-4">
+  <div class="card" style="padding: 20px; margin: 10px;">
+    <div class="card-body">
+      <form
+        [formGroup]="addKitchenForm"
+        (ngSubmit)="checkValidityAndSubmit()"
+        novalidate>
+
+        <!-- Montage -->
+        <div class="form-check mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="assemblage"
+            formControlName="assemblage" />
+          <label class="form-check-label" for="assemblage">
+            Montage
+          </label>
+        </div>
+
+        <!-- Demontage -->
+        <div class="form-check mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="dessemblage"
+            formControlName="dessemblage" />
+          <label class="form-check-label" for="dessemblage">
+            Demontage
+          </label>
+          <small class="form-text text-muted d-block" *ngIf="f['dessemblage'].value && !f['assemblage'].value && !f['transportKitchen'].value">
+            Nur für alte Küchen (150€)
+          </small>
+        </div>
+
+        <!-- Transport Küche -->
+        <div class="form-check mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="transportKitchen"
+            formControlName="transportKitchen" />
+          <label class="form-check-label" for="transportKitchen">
+            Transport Küche
+          </label>
+        </div>
+
+        <!-- New Kitchen (show when Montage OR Transport is checked) -->
+        <div class="form-check mb-3" *ngIf="f['assemblage'].value || f['transportKitchen'].value">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="newKitchen"
+            formControlName="newKitchen"
+            [disabled]="f['dessemblage'].value && !f['assemblage'].value && !f['transportKitchen'].value" />
+          <label class="form-check-label" for="newKitchen">
+            Neue Küche
+          </label>
+          <small class="form-text text-muted d-block" *ngIf="f['assemblage'].value && !f['transportKitchen'].value">
+            {{ f['newKitchen'].value ? 'Montage: 180€ pro Meter' : 'Montage: 110€ pro Meter' }}
+          </small>
+          <small class="form-text text-muted d-block" *ngIf="!f['assemblage'].value && f['transportKitchen'].value">
+            {{ f['newKitchen'].value ? 'Transport: 250€' : 'Transport: 150€' }}
+          </small>
+          <small class="form-text text-muted d-block" *ngIf="f['assemblage'].value && f['transportKitchen'].value">
+            {{ f['newKitchen'].value ? 'Montage: 180€/m + Transport: 250€' : 'Montage: 110€/m + Transport: 150€' }}
+          </small>
+        </div>
+
+        <!-- Meters (only show when Montage is checked) -->
+        <div class="mb-3" *ngIf="f['assemblage'].value">
+          <label class="form-label" for="meters">Meter (Standard: 5m)</label>
+          <input
+            type="number"
+            id="meters"
+            class="form-control"
+            formControlName="meters"
+            step="0.5"
+            min="5"
+            placeholder="Mindestens 5 Meter" />
+          <small class="form-text text-muted">
+            Mindestens 5 Meter erforderlich
+          </small>
+        </div>
+
+        <!-- Preis -->
+        <div class="mb-4">
+          <label class="form-label" for="price">Preis (€)</label>
+          <input
+            type="number"
+            id="price"
+            class="form-control"
+            formControlName="price"
+            step="0.01"
+            min="0"
+            placeholder="z.B. 123.45"
+            [readonly]="f['assemblage'].value && f['meters'].value > 0" />
+          <small class="form-text text-muted" *ngIf="f['assemblage'].value && f['meters'].value > 0">
+            Preis wird automatisch berechnet
+          </small>
+          <div
+            *ngIf="f['price'].invalid && (f['price'].dirty || f['price'].touched)"
+            class="alert alert-danger mt-2">
+            <div *ngIf="f['price'].errors?.['required']">
+              Das Feld Preis ist ein Pflichtfeld!
+            </div>
+            <div *ngIf="f['price'].errors?.['pattern']">
+              Bitte geben Sie einen gültigen Preis ein (z.B. 123.45).
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="row mt-4">
+          <div class="col-md-12 text-center">
+            <div class="d-flex justify-content-center">
+              <button
+                type="submit"
+                class="btn btn-lg btn-success edit-item-btn smaller-btn">
+                Hinzufügen
+              </button>
+              <div class="mx-4"></div>
+              <button
+                type="button"
+                class="btn btn-lg btn-danger remove-item-btn smaller-btn"
+                (click)="list()">
+                Abbrechen
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

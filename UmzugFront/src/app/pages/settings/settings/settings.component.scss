@@ -1,0 +1,10 @@
+.ckeditor-container {
+  flex-grow: 1; /* Permet à l'éditeur de s'ajuster à la taille du conteneur */
+  margin-bottom: 20px;
+}
+
+.ck-editor__editable_inline {
+  min-height: 200px; /* Ajuster la hauteur minimale */
+  max-height: 300px; /* Limiter la hauteur maximale */
+  overflow-y: auto; /* Ajouter un scroll si nécessaire */
+}

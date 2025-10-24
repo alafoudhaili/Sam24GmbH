@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Xsupply - Transport & Logistics HTML Template</title>
+</head>
+<body>
+
+<header class="header-area-four six fixed-top">
+    <!-- Start Top Header Area -->
+    <div class="header-style-four">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 col-md-5">
+                    <div class="header-left-content">
+                        <ul>
+                            <li *ngIf="listSettings.length > 0">
+                                <a href="tel:{{ listSettings[0].telephone }}">
+                                    <i class="bx bx-phone-call"></i>
+                                    {{ listSettings[0].telephone }}
+                                </a>
+                            </li>
+                            <li *ngIf="listSettings.length > 0">
+                                <a href="mailto:{{ listSettings[0].email }}">
+                                    <i class="bx bx-envelope"></i>
+                                    {{ listSettings[0].email }}
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-7">
+                    <div class="header-right-content">
+                        <ul class="social-links">
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank">
+                                    <i class="bx bxl-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.twitter.com/" target="_blank">
+                                    <i class="bx bxl-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/" target="_blank">
+                                    <i class="bx bxl-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/" target="_blank">
+                                    <i class="bx bxl-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Top Header Area -->
+
+    <!-- Start Prevoz Navbar Area -->
+    <div class="prevoz-nav-style prevoz-nav-style-four">
+        <div class="navbar-area">
+            <!-- Menu For Mobile Device -->
+            <div class="mobile-nav">
+                <a class="navbar-brand" *ngIf="listSettings.length > 0">
+                    <img [src]="listSettings[0].logo" alt="Logo" width="100" height="auto">
+                </a>
+            </div>
+            <!-- Menu For Desktop Device -->
+            <div class="main-nav">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <div class="container">
+                        <a class="navbar-brand" *ngIf="listSettings.length > 0">
+                            <img [src]="listSettings[0].logo" alt="Logo" width="100" height="auto">
+                        </a>
+
+                        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                            <ul class="navbar-nav m-auto">
+                                <li class="nav-item">
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item">
+                                            <a routerLink="" class="nav-link">Home One</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/index2" class="nav-link">Home Two</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/index3" class="nav-link">Home Three</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/index4" class="nav-link">Home Four</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/index5" class="nav-link">Home Five</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/index6" class="nav-link">Home Six</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/index7" class="nav-link active">Home Seven</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item">
+                                            <a routerLink="/about" class="nav-link">About Us</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/why-us-choose" class="nav-link">Why Us Choose</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/team" class="nav-link">Team</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/global-location" class="nav-link">Global Location</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/faq" class="nav-link">FAQ</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/coming-soon" class="nav-link">Coming Soon</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <ul class="dropdown-menu">
+                                                <li class="nav-item">
+                                                    <a routerLink="/auth/login" class="nav-link">Log In</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a routerLink="/auth/register" class="nav-link">Sign Up</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/terms-conditions" class="nav-link">Terms Conditions</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/privacy-policy" class="nav-link">Privacy Policy</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink=""class="nav-link dropdown-toggle">
+                                        Company
+                                        <i class='bx bx-chevron-down'></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item">
+                                            <a routerLink="/company-history" class="nav-link">Company History</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/company-clients" class="nav-link">Company Clients</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/careers" class="nav-link">Careers</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink="/services" class="nav-link">Services</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink=""class="nav-link dropdown-toggle">
+                                        News
+                                        <i class='bx bx-chevron-down'></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item">
+                                            <a routerLink="/news-grid" class="nav-link">News Grid</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/news-full-width" class="nav-link">News Full width</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/news-left-sidebar" class="nav-link">News Left Sidebar</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/news-right-sidebar"class="nav-link">News Right Sidebar</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/news-details" class="nav-link">News Details</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink="/request-quote" class="nav-link">Request a Quote</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink="/contact" class="nav-link">Contact</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink="/auth/login" class="nav-link">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink="/auth/register" class="nav-link">Register</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- End Prevoz Navbar Area -->
+</header>
+<!-- End Header Area -->
+
+<!-- Start Sidebar Modal -->
+<div class="sidebar-modal">
+    <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">
+									<i class="bx bx-x"></i>
+								</span>
+                    </button>
+                    <h2 class="modal-title" id="myModalLabel2">
+                        <a routerLink="">
+                            <img src="assetsFront/img/logo/logo-one.png" alt="Logo">
+                        </a>
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">About Us</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, asperiores doloribus eum laboriosam praesentium delectus unde magni aut perspiciatis cumque deserunt dolore voluptate, autem pariatur? Dicta pariatur.</p>
+                    </div>
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">Additional Links</h3>
+                        <ul>
+                            <li>
+                                <a routerLink="/auth/login">Log In</a>
+                            </li>
+                            <li>
+                                <a routerLink="/auth/register">Sign Up</a>
+                            </li>
+                            <li>
+                                <a routerLink="/faq">FAQ</a>
+                            </li>
+                            <li>
+                                <a routerLink="/auth/login">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">Contact Info</h3>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="bx bx-location-plus"></i>
+                                Address
+                                <span>New York - 1060, Str. First 78 Great Western Road</span>
+                            </li>
+                            <li>
+                                <i class="bx bx-envelope"></i>
+                                Email
+                                <a href="mailto:hello@prevoz.com">hello@xsupply.com</a>
+                                <a href="mailto:info@xsupply.com">info@xsupply.com</a>
+                            </li>
+                            <li>
+                                <i class="bx bxs-phone-call"></i>
+                                Phone
+                                <a href="tel:+502-464-679">+502-464-679</a>
+                                <a href="tel:+265-497-466">+265-497-466</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">Connect With Us</h3>
+                        <ul class="social-list">
+                            <li>
+                                <a href="https://www.twitter.com/" target="_blank">
+                                    <i class='bx bxl-twitter'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank">
+                                    <i class='bx bxl-facebook'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/" target="_blank">
+                                    <i class='bx bxl-instagram'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/" target="_blank">
+                                    <i class='bx bxl-linkedin'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/" target="_blank">
+                                    <i class='bx bxl-youtube'></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar Modal -->
+<!-- Start Search Box Modal -->
+<div class="search-wrap">
+    <div class="search">
+        <button type="button" class="close">×</button>
+        <form>
+            <input type="search" value="" class="form-control" placeholder="Type Here..." />
+            <button type="submit" class="default-btn">
+                Search
+            </button>
+        </form>
+    </div>
+</div>
+<!-- End Search Box Modal -->
+
+<!-- Start Page Title Area -->
+<div class="page-title-area item-bg-1 jarallax"  data-jarallax='{"speed": 0.3}'>
+    <div class="container">
+        <div class="page-title-content">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-sm-6">
+                    <h2>Request A Quote</h2>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <ul>
+                        <li>
+                            <a routerLink="">
+                                Home
+                            </a>
+                        </li>
+                        <li>Request A Quote</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Page Title Area -->
+
+<!-- Start Track Area -->
+<section class="track-area track-area-six ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tab quote-list-tab">
+                    <ul class="tabs">
+
+                        <li>
+                            <a href="javascript:;">
+                                Request A Quote
+                                <i class="flaticon-quote"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab_content">
+                        <div class="tabs_item">
+                            <form>
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h3>Location Data</h3>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Your Last Name*" formControlName="nom">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Your First Name*" formControlName="prenom">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="email" class="form-control" placeholder="Your Email*" formControlName="email">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Your Phone*" formControlName="telephone">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h3>Personal Data</h3>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="City of Departure" formControlName="ptDepart">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Which City" formControlName="ptArrivee">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input type="date" class="form-control" formControlName="dateDepart">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h3>Dimensions</h3>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Width" formControlName="width">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Height" formControlName="height">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Weight" formControlName="weight">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Length" formControlName="length">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-30">
+                                            <div class="col-lg-3 col-sm-6 col-md-3">
+                                                <label class="single-check">
+                                                    Ocean Freight
+                                                    <input type="radio" name="radio">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-md-3">
+                                                <label class="single-check">
+                                                    Road Freight
+                                                    <input type="radio" name="radio">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-md-3">
+                                                <label class="single-check">
+                                                    Air Freight
+                                                    <input type="radio" name="radio" >
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button type="submit" class="default-btn">
+                                                    Request A Quote
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="track-img"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tabs_item">
+                            <form>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h3>Shipment Type</h3>
+                                                <div class="form-group">
+                                                    <select>
+                                                        <option value="1">Property Used For</option>
+                                                        <option value="2">Home Insurance</option>
+                                                        <option value="0">Business Insurance</option>
+                                                        <option value="3">Health Insurance</option>
+                                                        <option value="4">Travel Insurance</option>
+                                                        <option value="5">Car Insurance</option>
+                                                        <option value="6">Life Insurance</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mt-30">
+                                                <h3>Tracking Number</h3>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" placeholder="You can enter up to a maximum of 10 airway bill numbers for tracking."></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-sm-6 col-md-3">
+                                                <label class="single-check">
+                                                    Express Delivery
+                                                    <input type="radio" checked="checked" name="radio">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-md-3">
+                                                <label class="single-check">
+                                                    Ocean Freight
+                                                    <input type="radio" name="radio">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-md-3">
+                                                <label class="single-check">
+                                                    Road Freight
+                                                    <input type="radio" name="radio">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-md-3">
+                                                <label class="single-check">
+                                                    Air Freight
+                                                    <input type="radio" name="radio">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="track-img"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Track Area -->
+
+<!-- Start FAQ Area -->
+<!-- End FAQ Area -->
+
+<!-- Start FAQ Contact Area -->
+<section class="faq-contact-area pb-100">
+    <div class="container">
+        <div class="ask-question">
+            <div class="section-title">
+                <h2>Ask Question</h2>
+            </div>
+            <form id="contactForm" [formGroup]="addForm" (ngSubmit)="checkValidityAndSubmit()">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <input type="text" formControlName="nom" class="form-control" required data-error="Please enter your name" placeholder="Your Name">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <input type="email" formControlName="email" class="form-control" required data-error="Please enter your email" placeholder="Your Email">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <input type="text" formControlName="telephone" required data-error="Please enter your number" class="form-control" placeholder="Your Phone">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <input type="text" formControlName="objet" class="form-control"  placeholder="Your Subject">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12">
+                        <div class="form-group">
+                            <textarea name="message" class="form-control" formControlName="message" cols="30" rows="5" required data-error="Write your message" placeholder="Your Message"></textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12">
+                        <button type="submit" class="default-btn btn-two">
+                            Send Message
+                        </button>
+                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- End FAQ Contact Area -->
+
+<!-- Start Footer Top Area -->
+<footer class="footer-top-area pt-100 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="single-widget">
+                    <h3>What We Do</h3>
+                    <ul>
+                        <li><a routerLink="/service">Warehousing</a></li>
+                        <li><a routerLink="/service">Air Freight</a></li>
+                        <li><a routerLink="/service">Ocean Freight</a></li>
+                        <li><a routerLink="/service">Road Freight</a></li>
+                        <li><a routerLink="/service">Supply Chain</a></li>
+                        <li><a routerLink="/service">Packaging</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="single-widget">
+                    <h3>Industries</h3>
+                    <ul>
+                        <li><a routerLink="/service">Chemicals</a></li>
+                        <li><a routerLink="/service">DIY</a></li>
+                        <li><a routerLink="/service">Automotive</a></li>
+                        <li><a routerLink="/service">Consumer Goods</a></li>
+                        <li><a routerLink="/service">Life Science</a></li>
+                        <li><a routerLink="/service">Foreign Trade</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="single-widget">
+                    <h3>What We Do</h3>
+                    <ul>
+                        <li><a routerLink="/about">About Us</a></li>
+                        <li><a routerLink="/team">Meet Our Team</a></li>
+                        <li><a routerLink="/blog">News & Media</a></li>
+                        <li><a routerLink="/careers">Case Studies</a></li>
+                        <li><a routerLink="/contact">Contact Us</a></li>
+                        <li><a routerLink="/services">Work With Us </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="single-widget">
+                    <h3>Company </h3>
+                    <ul>
+                        <li><a routerLink="/about">About</a></li>
+                        <li><a routerLink="/service">Approach</a></li>
+                        <li><a routerLink="/service">Sustainability</a></li>
+                        <li><a routerLink="/news-grid">News</a></li>
+                        <li><a routerLink="/contact">Supply Chain</a></li>
+                        <li><a routerLink="/service">Packaging</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer Top Area -->
+
+<!-- Start Footer Bottom Area -->
+<footer class="footer-bottom-area fun-blue-bg">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5">
+                <div class="single-widget-bottom">
+                    <ul>
+                        <li>
+                            <a routerLink="/terms">Terms & Conditions</a>
+                        </li>
+                        <li>
+                            <a routerLink="/privacy">Privacy &Policy</a>
+                        </li>
+                        <li>
+                            <a routerLink="/auth/login">Employee login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="single-widget-bottom">
+                    <p>© Prevoz is Proudly Owned by <a href="https://envytheme.com/" target="_blank">EnvyTheme</a></p>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="single-widget-bottom">
+                    <ul class="social-link">
+                        <li>
+                            <a href="https://www.twitter.com/" target="_blank">
+                                <i class='bx bxl-twitter'></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/" target="_blank">
+                                <i class='bx bxl-facebook'></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/" target="_blank">
+                                <i class='bx bxl-instagram'></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/" target="_blank">
+                                <i class='bx bxl-linkedin'></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/" target="_blank">
+                                <i class='bx bxl-youtube'></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer Bottom Area -->
+
+<!-- Start Go Top Area -->
+<div class="go-top">
+    <i class='bx bx-chevrons-up bx-fade-up'></i>
+    <i class='bx bx-chevrons-up bx-fade-up'></i>
+</div>
+<!-- End Go Top Area -->
+</body>
+</html>

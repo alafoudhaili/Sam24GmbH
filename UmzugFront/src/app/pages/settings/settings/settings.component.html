@@ -1,0 +1,320 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Allgemeine Einstellungen" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="settingsList">
+                    <button *ngIf="this.listSettings.length == 0" class="btn btn-primary mb-3" (click)="openAddModal()">Neue Einstellungen hinzufügen</button>
+                    <div class="table-responsive table-card mt-3 mb-1">
+                        <table class="table table-bordered">
+                            <thead>
+                            </thead>
+                            <tbody *ngFor="let settings of listSettings">
+                            <tr>
+                                <td><strong>TITEL</strong></td>
+                                <td><span>{{ settings.titre}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ÜBER UNS</strong></td>
+                                <td><span [innerHTML]="settings.apropos"></span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ÜBER UNS 2</strong></td>
+                                <td><span [innerHTML]="settings.apropos2"></span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ÜBER UNS 3</strong></td>
+                                <td><span [innerHTML]="settings.apropos3"></span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ZIEL</strong></td>
+                                <td><span [innerHTML]="settings.objective"></span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>MISSION</strong></td>
+                                <td><span [innerHTML]="settings.mission"></span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>VISION</strong></td>
+                                <td><span [innerHTML]="settings.vision"></span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>MOTTO</strong></td>
+                                <td><span [innerHTML]="settings.motto"></span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>TITEL DIENSTLEISTUNGEN</strong></td>
+                                <td><span>{{ settings.titreService}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Adresse</strong></td>
+                                <td><span>{{ settings.adresse}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Startzeit</strong></td>
+                                <td><span>{{ formatTime(settings.heureDebut) | date: 'HH:mm'}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Endzeit</strong></td>
+                                <td><span>{{ formatTime(settings.heureFin) | date: 'HH:mm'}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>E-MAIL</strong></td>
+                                <td><span>{{ settings.email}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>TELEFON</strong></td>
+                                <td><span>{{ settings.telephone}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>WHATSAPP</strong></td>
+                                <td><span>{{ settings.whatsapp}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>LOGO</strong></td>
+                                <td> <span><img src="{{settings.logo}}" width="100" height="100"></span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>BANNER</strong></td>
+                                <td><span *ngIf="isImage(settings.banner)">
+                                    <img [src]="settings.banner" width="200" height="150" alt="Banner Image">
+                                </span>
+                                    <span *ngIf="isVideo(settings.banner)">
+                                        <video [src]="settings.banner" width="200" height="150" controls>
+                                            Ihr Browser unterstützt das Video-Tag nicht.
+                                        </video>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>LOGO-DIMENSIONEN</strong></td>
+                                <td><span>{{ settings.dimensionLogo}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>AKTIONEN</strong></td>
+                                <td>
+                                    <ul style="padding-left: 0rem">
+                                        <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                            ngbTooltip="Bearbeiten" placement="top">
+                                            <a data-bs-toggle="modal" class="text-primary d-inline-block edit-item-btn"
+                                               id="create-btn" data-bs-target="#showModal" (click)="openEditModal(settings, content)">
+                                                <i class="ri-pencil-fill fs-16"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end col -->
+</div>
+
+<!-- Edit Modal -->
+<ng-template #content role="document" let-modal>
+    <div class="modal-header bg-light p-3">
+        <h5 class="modal-title" id="exampleModalLabel">Einstellungen bearbeiten</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen" id="close-modal"
+                (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form (ngSubmit)="updateSettings()" [formGroup]="listForm" class="tablelist-form" autocomplete="off">
+        <div class="modal-body">
+            <input type="hidden" name="id_settings" formControlName="id_settings" />
+            <div class="mb-3">
+                <label for="titre" class="form-label">Titel</label>
+                <input type="text" id="titre" class="form-control"
+                       placeholder="Titel" formControlName="titre"
+                       [ngClass]="{ 'is-invalid': submitted && form['titre'].errors }"/>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Über uns</label>
+                <ckeditor formControlName="apropos" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Über uns 2</label>
+                <ckeditor formControlName="apropos2" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Über uns 3</label>
+                <ckeditor formControlName="apropos3" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Ziel</label>
+                <ckeditor formControlName="objective" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Mission</label>
+                <ckeditor formControlName="mission" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Vision</label>
+                <ckeditor formControlName="vision" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Motto</label>
+                <ckeditor formControlName="motto" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Titel der Dienste</label>
+                <input type="text" formControlName="titreService" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="titre" class="form-label">Adresse</label>
+                <input type="text"  class="form-control"
+                       placeholder="Adresse..." required formControlName="adresse"
+                       [ngClass]="{ 'is-invalid': submitted && form['adresse'].errors }"/>
+            </div>
+            <div class="mb-3">
+                <label for="heureDebut" class="form-label">Startzeit</label>
+                <input type="time" id="heureDebut" class="form-control"
+                       formControlName="heureDebut" placeholder="HH:mm"
+                       [ngClass]="{ 'is-invalid': submitted && form['heureDebut'].errors }"/>
+            </div>
+            <div class="mb-3">
+                <label for="heureFin" class="form-label">Endzeit</label>
+                <input type="time" id="heureFin" class="form-control"
+                       formControlName="heureFin"
+                       placeholder="HH:mm"
+                       [ngClass]="{ 'is-invalid': submitted && form['heureFin'].errors }"/>
+            </div>
+            <div class="mb-3">
+                <label for="telephone" class="form-label">Telefonnummer</label>
+                <input type="number"  class="form-control"
+                       placeholder="Nummer" required formControlName="telephone"
+                       [ngClass]="{ 'is-invalid': submitted && form['telephone'].errors }"/>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">E-Mail</label>
+                <input type="text"  class="form-control"
+                       placeholder="E-Mail-Adresse" required formControlName="email"
+                       [ngClass]="{ 'is-invalid': submitted && form['email'].errors }"/>
+            </div>
+            <div class="mb-3">
+                <label for="whatsapp" class="form-label">Whatsapp</label>
+                <input type="number"  class="form-control"
+                       placeholder="Whatsapp Nummer" required formControlName="whatsapp"
+                       [ngClass]="{ 'is-invalid': submitted && form['whatsapp'].errors }"/>
+            </div>
+            <div class="mb-3">
+                <label >Logo</label>
+                <input type="file" (change)="onFileChange($event)" class="form-control" formControlName="logo">
+            </div>
+            <div class="mb-3">
+                <label >Banner</label>
+                <input type="file" (change)="onFileBannerChange($event)" class="form-control" formControlName="banner">
+            </div>
+            <div class="mb-3">
+                <label for="dimensionLogo" class="form-label">Logo-Dimensionen</label>
+                <input type="text"  class="form-control"
+                       placeholder="Logo-Dimensionen" required formControlName="dimensionLogo"
+                       [ngClass]="{ 'is-invalid': submitted && form['dimensionLogo'].errors }"/>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="hstack gap-2 justify-content-end">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        (click)="modal.close('Close click')">Abbrechen</button>
+                <button type="submit" class="btn btn-success mx-2" id="add-btn">Speichern</button>
+            </div>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #addSettingsModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Neue Einstellung hinzufügen</h5>
+        <button type="button" class="btn-close" aria-label="Schließen" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="settingsForm">
+            <div class="mb-3">
+                <label for="titre" class="form-label">Titel</label>
+                <input type="text"  class="form-control"
+                       placeholder="Haupttitel" required formControlName="titre"
+                       [ngClass]="{ 'is-invalid': submitted && form['titre'].errors }"/>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Über uns</label>
+                <ckeditor formControlName="apropos" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Über uns 2</label>
+                <ckeditor formControlName="apropos2" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Über uns 3</label>
+                <ckeditor formControlName="apropos3" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Ziel</label>
+                <ckeditor formControlName="objective" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Mission</label>
+                <ckeditor formControlName="mission" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Vision</label>
+                <ckeditor formControlName="vision" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Motto</label>
+                <ckeditor formControlName="motto" [editor]="editor" [config]="editorConfig"></ckeditor>
+            </div>
+            <div class="col-12 mb-3 ckeditor-container">
+                <label class="form-label">Titel der Dienste</label>
+                <input type="text" formControlName="titreService" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="titre" class="form-label">Adresse</label>
+                <input type="text"  class="form-control"
+                       placeholder="Adresse..." required formControlName="adresse"
+                       [ngClass]="{ 'is-invalid': submitted && form['adresse'].errors }"/>
+            </div>
+            <div class="mb-3">
+                <label for="telephone" class="form-label">Telefonnummer</label>
+                <input type="number"  class="form-control"
+                       placeholder="Nummer" required formControlName="telephone"
+                       [ngClass]="{ 'is-invalid': submitted && form['telephone'].errors }"/>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">E-Mail</label>
+                <input type="text"  class="form-control"
+                       placeholder="E-Mail-Adresse" required formControlName="email"
+                       [ngClass]="{ 'is-invalid': submitted && form['email'].errors }"/>
+            </div>
+            <div class="mb-3">
+                <label for="whatsapp" class="form-label">Whatsapp</label>
+                <input type="number"  class="form-control"
+                       placeholder="Whatsapp Nummer" required formControlName="whatsapp"
+                       [ngClass]="{ 'is-invalid': submitted && form['whatsapp'].errors }"/>
+            </div>
+            <div class="mb-3">
+                <label >Logo</label>
+                <input type="file" (change)="onFileChange($event)" class="form-control" formControlName="logo">
+            </div>
+            <div class="mb-3">
+                <label >Banner</label>
+                <input type="file" (change)="onFileBannerChange($event)" class="form-control" formControlName="banner">
+            </div>
+            <div class="mb-3">
+                <label for="dimensionLogo" class="form-label">Logo-Dimensionen</label>
+                <input type="text"  class="form-control"
+                       placeholder="Logo-Dimensionen" required formControlName="dimensionLogo"
+                       [ngClass]="{ 'is-invalid': submitted && form['dimensionLogo'].errors }"/>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cancel click')">Abbrechen</button>
+        <button type="button" class="btn btn-success" (click)="saveSettings()">Speichern</button>
+    </div>
+</ng-template>

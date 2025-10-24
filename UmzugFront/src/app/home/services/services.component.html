@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title>Sam24GmbH - Transport & Logistics</title>
+</head>
+<body>
+
+<!-- Start Header Area -->
+<app-header></app-header>
+<!-- End Header Area -->
+
+<!-- Start Sidebar Modal -->
+<div class="sidebar-modal">
+    <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">
+									<i class="bx bx-x"></i>
+								</span>
+                    </button>
+                    <h2 class="modal-title" id="myModalLabel2">
+                        <a routerLink="">
+                            <img src="assetsFront/img/logo/logo-one.png" alt="Logo">
+                        </a>
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">About Us</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, asperiores doloribus eum laboriosam praesentium delectus unde magni aut perspiciatis cumque deserunt dolore voluptate, autem pariatur? Dicta pariatur.</p>
+                    </div>
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">Additional Links</h3>
+                        <ul>
+                            <li>
+                                <a routerLink="/auth/login">Log In</a>
+                            </li>
+                            <li>
+                                <a routerLink="/auth/register">Sign Up</a>
+                            </li>
+                            <li>
+                                <a routerLink="/faq">FAQ</a>
+                            </li>
+                            <li>
+                                <a routerLink="/auth/login">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">Contact Info</h3>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="bx bx-location-plus"></i>
+                                Address
+                                <span>New York - 1060, Str. First 78 Great Western Road</span>
+                            </li>
+                            <li>
+                                <i class="bx bx-envelope"></i>
+                                Email
+                                <a href="mailto:hello@prevoz.com">hello@xsupply.com</a>
+                                <a href="mailto:info@xsupply.com">info@xsupply.com</a>
+                            </li>
+                            <li>
+                                <i class="bx bxs-phone-call"></i>
+                                Phone
+                                <a href="tel:+502-464-679">+502-464-679</a>
+                                <a href="tel:+265-497-466">+265-497-466</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">Connect With Us</h3>
+                        <ul class="social-list">
+                            <li>
+                                <a href="https://www.twitter.com/" target="_blank">
+                                    <i class='bx bxl-twitter'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank">
+                                    <i class='bx bxl-facebook'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/" target="_blank">
+                                    <i class='bx bxl-instagram'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/" target="_blank">
+                                    <i class='bx bxl-linkedin'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/" target="_blank">
+                                    <i class='bx bxl-youtube'></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar Modal -->
+
+<!-- Start Search Box Modal -->
+
+<!-- End Page Title Area -->
+<div class="page-title-area item-bg-1 jarallax"  data-jarallax='{"speed": 0.3}'>
+    <div class="container">
+        <div class="page-title-content">
+            <div class="row align-items-center">
+               
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start What We Offer Area -->
+<section class="service-area pt-100">
+    <div class="container">
+        <div class="section-title" *ngIf="listSettings.length > 0">
+            <span>Unsere Dienstleistungen</span>
+            <h2>{{ listSettings[0].titreService }}</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6">
+                <div class="single-offer" *ngIf="listServices.length > 0">
+                    <i class="icon flaticon-air-freight"></i>
+                    <h3>{{ listServices[0].titre }}</h3>
+                    <p [innerHTML]="listServices[0].description "></p>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="single-offer" *ngIf="listServices.length > 0">
+                    <i class="icon flaticon-warehouse"></i>
+                    <h3>{{ listServices[1].titre }}</h3>
+                    <p [innerHTML]="listServices[1].description"></p>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="single-offer" *ngIf="listServices.length > 0">
+                    <i class="icon flaticon-planet-earth"></i>
+                    <h3>{{ listServices[2].titre }}</h3>
+                    <p [innerHTML]="listServices[2].description"></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br><br>
+<!-- End What We Offer Area -->
+
+
+<!-- End Began Area -->
+<section class="began-area pb-70">
+    <div class="container">
+        <div class="section-title">
+            <span>Beginnen Sie mit unseren Dienstleistungen</span>
+            <h2>Bitte befolgen Sie die Regeln, um sicher zu bleiben</h2>
+            <p>Wir bieten maßgeschneiderte Umzugs- und Logistiklösungen, die Ihnen einen sicheren und effizienten Umzug ermöglichen. Vertrauen Sie auf unser professionelles Team und unsere Erfahrung.</p>
+        </div>
+        <div class="began-top-wrap">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="began-wrap">
+                        <h2>Schützen Sie Ihre Möbel und Güter mit Sam24 GmbH</h2>
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-6 p-0">
+                                <div class="single-began">
+                                    <i class="flaticon-fast-delivery"></i>
+                                    <h3>Schneller & effizienter Umzug</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6 p-0">
+                                <div class="single-began">
+                                    <i class="flaticon-lock"></i>
+                                    <h3>Sicherheit für Ihre Möbel und Wertsachen</h3>
+                                </div>
+                            </div>
+                           <div class="col-lg-4 col-sm-6 p-0">
+                                <div class="single-began">
+                                    <i class="flaticon-truck"></i>
+                                    <h3>Professionelle Umzugsplanung</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6 p-0">
+                                <div class="single-began">
+                                    <i class="flaticon-payment-method"></i>
+                                    <h3>Einfache Zahlungsoptionen</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6 p-0">
+                                <div class="single-began">
+                                    <i class="flaticon-warehouse"></i>
+                                    <h3>24/7 Unterstützung für Umzüge</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6 p-0">
+                                <div class="single-began">
+                                    <i class="flaticon-distribution"></i>
+                                    <h3>Gewerbliche Lagerung</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- End Began Area -->
+
+
+
+
+
+
+<!-- Start Footer Top Area -->
+<app-footerFront></app-footerFront>
+<!-- End Footer Bottom Area -->
+
+<!-- Start Go Top Area -->
+<div class="go-top">
+    <i class='bx bx-chevrons-up bx-fade-up'></i>
+    <i class='bx bx-chevrons-up bx-fade-up'></i>
+</div>
+<!-- End Go Top Area -->
+</body>
+</html>

@@ -1,0 +1,108 @@
+th {
+  text-align: center ;
+}
+tr{
+  text-align: center ;
+}
+
+td:nth-child(3) span {
+  white-space: normal;
+}
+
+.list-inline-item:not(:last-child):after {
+  content: " ";
+  margin-left: 10px; /* Ajustez cette valeur selon vos besoins */
+  margin-right: 10px; /* Ajustez cette valeur selon vos besoins */
+}
+.actions-header {
+  width: 200px;  /* Adjust this width based on your needs */
+}
+
+.small-text {
+  font-size: 0.8em;  /* This reduces the text size to 80% of the original. Adjust as needed. */
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+
+.slider-image {
+  width: 300px;   /* largeur souhaitée */
+  height: 300px;  /* hauteur souhaitée */
+  object-fit: contain;  /* s'assurer que l'image est entièrement visible */
+  max-width: 100%;  /* s'assurer que l'image ne dépasse pas la largeur du conteneur */
+  max-height: 100%; /* s'assurer que l'image ne dépasse pas la hauteur du conteneur */
+}
+
+
+/* Styles pour la pagination MatPaginator */
+mat-paginator {
+  color: black; /* Couleur du texte de la pagination */
+  background-color: #d3d3d3; /* Couleur de fond de la pagination */
+}
+
+
+/* Style pour les icônes des boutons */
+.custom-previous-button mat-icon,
+.custom-next-button mat-icon {
+  font-size: 20px; /* Taille de la police des icônes */
+}
+
+/* Style personnalisé pour le bouton "Previous" */
+.custom-previous-button {
+  color: black; /* Couleur du texte */
+  background-color: black; /* Couleur de fond */
+  border: 1px solid #000; /* Bordure */
+  border-radius: 4px; /* Rayon de bordure */
+  margin: 2px; /* Marge entre les boutons */
+  min-width: 36px; /* Largeur minimale des boutons */
+  height: 36px; /* Hauteur des boutons */
+}
+
+/* Style personnalisé pour le bouton "Next" */
+.custom-next-button {
+  color: black; /* Couleur du texte */
+  background-color: white; /* Couleur de fond */
+  border: 1px solid #000; /* Bordure */
+  border-radius: 4px; /* Rayon de bordure */
+  margin: 2px; /* Marge entre les boutons */
+  min-width: 36px; /* Largeur minimale des boutons */
+  height: 36px; /* Hauteur des boutons */
+}
+
+.card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.active-card {
+  border: 2px solid #02ffbe;
+}
+
+
+
+.status-box {
+  display: inline-block; /* Ensures the element is laid out inline */
+  width: 60px; /* Fixed width for all status boxes */
+  text-align: center; /* Centers the text inside the box */
+  padding: 5px 0; /* Padding to ensure text is vertically centered */
+  border-radius: 0.25rem; /* Rounded corners for aesthetics */
+  text-transform: uppercase; /* Converts text to uppercase */
+  color: white; /* Ensures text color is white for visibility */
+}
+
+.bg-success {
+  background-color: #10ec42; /* Green background for 'lu' */
+}
+
+.bg-danger {
+  background-color: #f8021a; /* Red background for 'non-lu' */
+}
+
+
+

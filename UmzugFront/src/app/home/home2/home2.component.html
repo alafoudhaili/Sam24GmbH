@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title>Sam24GmbH - Transport & Logistics</title>
+</head>
+<body>
+<app-header></app-header> <!-- Include Header -->
+
+
+<!-- Start Sidebar Modal -->
+<div class="sidebar-modal">
+    <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">
+									<i class="bx bx-x"></i>
+								</span>
+                    </button>
+                    <h2 class="modal-title" id="myModalLabel2">
+                        <a routerLink="">
+                            <img src="assetsFront/img/logo/logo-one.png" alt="Logo">
+                        </a>
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">About Us</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, asperiores doloribus eum
+                            laboriosam praesentium delectus unde magni aut perspiciatis cumque deserunt dolore
+                            voluptate, autem pariatur? Dicta pariatur.</p>
+                    </div>
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">Additional Links</h3>
+                        <ul>
+                            <li>
+                                <a routerLink="/auth/login">Log In</a>
+                            </li>
+                            <li>
+                                <a routerLink="/auth/register">Sign Up</a>
+                            </li>
+                            <li>
+                                <a routerLink="/faq">FAQ</a>
+                            </li>
+                            <li>
+                                <a routerLink="/auth/login">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">Contact Info</h3>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="bx bx-location-plus"></i>
+                                Address
+                                <span>New York - 1060, Str. First 78 Great Western Road</span>
+                            </li>
+                            <li>
+                                <i class="bx bx-envelope"></i>
+                                Email
+                                <a href="mailto:hello@prevoz.com">hello@xsupply.com</a>
+                                <a href="mailto:info@xsupply.com">info@xsupply.com</a>
+                            </li>
+                            <li>
+                                <i class="bx bxs-phone-call"></i>
+                                Phone
+                                <a href="tel:+502-464-679">+502-464-679</a>
+                                <a href="tel:+265-497-466">+265-497-466</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-modal-widget">
+                        <h3 class="title">Connect With Us</h3>
+                        <ul class="social-list">
+                            <li>
+                                <a href="https://www.twitter.com/" target="_blank">
+                                    <i class='bx bxl-twitter'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank">
+                                    <i class='bx bxl-facebook'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/" target="_blank">
+                                    <i class='bx bxl-instagram'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/" target="_blank">
+                                    <i class='bx bxl-linkedin'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/" target="_blank">
+                                    <i class='bx bxl-youtube'></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar Modal -->
+
+<!-- Start Search Box Modal -->
+<div class="search-wrap">
+    <div class="search">
+        <button type="button" class="close">×</button>
+        <form>
+            <input type="search" value="" class="form-control" placeholder="Type Here..."/>
+            <button type="submit" class="default-btn">
+                Search
+            </button>
+        </form>
+    </div>
+</div>
+<!-- End Search Box Modal -->
+
+<!-- Start Video Banner Area -->
+<section class="prevoz-slider-area prevoz-slider-area-seven">
+    <div class="background-media" *ngIf="listSettings.length > 0">
+        <ng-container *ngIf="isVideo(listSettings[0].banner); else imageBanner">
+            <video #backgroundVideo loop muted autoplay preload="auto" class="background-video">
+                <source [src]="listSettings[0].banner" type="video/mp4">
+                Votre navigateur ne supporte pas la lecture de vidéos en arrière-plan.
+            </video>
+        </ng-container>
+        <ng-template #imageBanner>
+            <img [src]="listSettings[0].banner" alt="Background Banner" class="background-image">
+        </ng-template>
+    </div>
+
+    <div class="prevoz-slider-item">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div *ngIf="listSettings.length > 0" class="prevoz-slider-text one">
+                        <div class="title-container">
+                            <h1 style="display: inline; white-space: nowrap;">{{ listSettings[0].titre }}</h1>
+                        </div>
+
+                        <p style="font-size: 36px;">Starten Sie Ihr erstes stressfreies Umzug Erlebnis</p>
+                        <br>
+                        <div class="slider-btn">
+                            <a class="default-btn active" routerLink="/umzugFormular">
+                                 Umzug buchen
+                            </a>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Video Banner Area -->
+
+<!-- Start About Area -->
+<section class="about-area about-area-two about-area-four about-area-six ptb-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div *ngIf="listSettings.length > 0" class="about-content">
+                    <span>Erfahren Sie Mehr über Uns</span>
+                <h3>Wir machen Ihren Umzug einfach und stressfrei...<br>Mit uns an Ihrer Seite, wird der Umzug zum Kinderspiel</h3>
+                    <ngb-carousel [interval]="5000" class="custom-carousel">
+                        <ng-template ngbSlide>
+                            <p [innerHTML]="listSettings[0].apropos"></p>
+                        </ng-template>
+                        <ng-template ngbSlide>
+                            <p [innerHTML]="listSettings[0].apropos2"></p>
+                        </ng-template>
+                        <ng-template ngbSlide>
+                            <p [innerHTML]="listSettings[0].apropos3"></p>
+                        </ng-template>
+                    </ngb-carousel>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-img-six">
+                    <img src="assetsFront/img/about-img-six.png" alt="image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="lines">
+        <div class="line-two"></div>
+        <div class="line-two"></div>
+        <div class="line-two"></div>
+    </div>
+</section>
+<!-- End About Area -->
+
+
+<!-- Stat Choose Area -->
+<section class="choose-area pt-100 pb-70">
+    <div class="container">
+        <section class="choose-area pt-100 pb-70">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Warum uns wählen?</h2>
+                    <span>Unser Wertversprechen</span>
+                    <p>Wir steigern Effizienz, Genauigkeit, Transparenz und Flexibilität mit einem kundenorientierten Angebot und ermöglichen jedem Kunden mit Sam24GmbH ein reibungsloses Umzugserlebnis.</p>
+                </div>
+                <div class="row" style="display: flex; justify-content: space-between; align-items: stretch;">
+                    <div class="col-lg-12 col-sm-12"
+     style="display: flex; flex-direction: column; padding: 0; align-items: stretch;">
+  <div class="single-choose"
+       style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+    <div class="choose-head"
+         style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+<i class='bx  bx-happy-alt'  ></i>       <h3 style="margin: 0; padding-bottom: 12px;">Für unsere Umzugskunden</h3>
+    </div>
+    <ul style="list-style-type: none; padding: 20px;" class="text-center">
+      <li style="font-size: 1.5em;"><strong>Sie profitieren von:</strong></li>
+      <li style="font-size: 1.5em;">✓ Transparenter Preisgestaltung</li>
+      <li style="font-size: 1.5em;">✓ Echtzeit-Status Ihrer Umzüge</li>
+      <li style="font-size: 1.5em;">✓ Flexible Terminplanung</li>
+      <li style="font-size: 1.5em;">✓ Automatisiertem Rechnungsversand</li>
+      <li style="font-size: 1.5em;">✓ Persönlichem Kundenservice</li>
+    </ul>
+  </div>
+</div>
+
+
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<!-- End Choose Area -->
+
+<!-- Start Track Area -->
+
+<!-- End Track Area -->
+
+<!-- start Service Area -->
+<section class="service-area pt-100">
+    <div class="container">
+        <div class="section-title">
+            <h2>Wir bieten Dienstleistungen an</h2>
+
+        </div>
+        <div class="row" style="display: flex; justify-content: space-between; align-items: stretch;">
+            <!-- Première colonne -->
+            <div class="col-lg-3 col-sm-6" style="display: flex; flex-direction: column;">
+                <div *ngIf="listServices.length > 0" class="single-offer" style="flex-grow: 1;">
+            <i class="icon ri-inbox-unarchive-line"></i>                   
+                    <h3>{{ listServices[0].titre }}</h3>
+                    <p [innerHTML]="listServices[0].description"></p>
+                </div>
+            </div>
+
+            <!-- Deuxième colonne -->
+            <div class="col-lg-3 col-sm-6" style="display: flex; flex-direction: column;">
+                <div *ngIf="listServices.length > 0" class="single-offer" style="flex-grow: 1;">
+                    <i class="icon flaticon-fast-delivery"></i>
+                    <h3>{{ listServices[1].titre }}</h3>
+                    <p [innerHTML]="listServices[1].description"></p>
+                </div>
+            </div>
+
+            <!-- Troisième colonne -->
+            <div class="col-lg-3 col-sm-6" style="display: flex; flex-direction: column;">
+                <div *ngIf="listServices.length > 0" class="single-offer" style="flex-grow: 1;">
+                    <i class="icon flaticon-warehouse"></i>
+                    <h3>{{ listServices[2].titre }}</h3>
+                    <p [innerHTML]="listServices[2].description"></p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6" style="display: flex; flex-direction: column;">
+                <div *ngIf="listServices.length > 0" class="single-offer" style="flex-grow: 1;">
+                    <i class="icon flaticon-warehouse"></i>
+                    <h3>{{ listServices[3].titre }}</h3>
+                    <p [innerHTML]="listServices[3].description"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Service Area -->
+
+<!-- Start Video Area -->
+
+
+<!-- End Video Area -->
+
+
+<!-- Start What We Offer Area -->
+
+<!-- End What We Offer Area -->
+
+
+<!-- Start Project Area -->
+<section class="project-area-six pb-100">
+    <div class="container">
+        <div class="section-title">
+            <span>Our Projects</span>
+            <h2>Featured Projects have done</h2>
+            <p>We encourage everyone to adhere to the safety guidelines to ensure a secure and pleasant experience for
+                all. Remember, your safety is our priority.</p>
+        </div>
+
+        <div class="project-wraps">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-project">
+                                <div class="project-image bg-1">
+                                    <div class="price-wrap"></div>
+                                </div>
+
+                                <div class="project-content">
+                                    <div>
+                                        <span>Coaching</span>
+
+                                        <h3>
+                                            <a routerLink="/careers">
+                                                Business Growth
+                                            </a>
+                                        </h3>
+
+                                        <a class="read-more" routerLink="/careers">
+                                            View More
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-project">
+                                <div class="project-image bg-2">
+                                    <div class="price-wrap">
+                                    </div>
+                                </div>
+
+                                <div class="project-content">
+                                    <div>
+                                        <span>Facilitation</span>
+
+                                        <h3>
+                                            <a routerLink="/careers">
+                                                Digital Analysis
+                                            </a>
+                                        </h3>
+
+                                        <a class="read-more" routerLink="/careers">
+                                            View More
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-12">
+                            <div class="single-project">
+                                <div class="project-image bg-3">
+                                    <div class="price-wrap">
+                                    </div>
+                                </div>
+
+                                <div class="project-content">
+                                    <div>
+                                        <span>Coaching</span>
+
+                                        <h3>
+                                            <a routerLink="/careers">
+                                                Chan Agency
+                                            </a>
+                                        </h3>
+
+                                        <a class="read-more" routerLink="/careers">
+                                            View More
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-project">
+                                <div class="project-image bg-4">
+                                    <div class="price-wrap">
+                                    </div>
+                                </div>
+
+                                <div class="project-content">
+                                    <div>
+                                        <span>Strategy</span>
+
+                                        <h3>
+                                            <a routerLink="/careers">
+                                                Data Analytics
+                                            </a>
+                                        </h3>
+
+                                        <a class="read-more" routerLink="/careers">
+                                            View More
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8 col-md-6">
+                            <div class="single-project">
+                                <div class="project-image bg-5">
+                                    <div class="price-wrap"></div>
+                                </div>
+
+                                <div class="project-content">
+                                    <div>
+                                        <span>Facilitation</span>
+
+                                        <h3>
+                                            <a routerLink="/careers">
+                                                Court Imperial
+                                            </a>
+                                        </h3>
+
+                                        <a class="read-more" routerLink="/careers">
+                                            View More
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-project">
+                                <div class="project-image bg-6">
+                                    <div class="price-wrap"></div>
+                                </div>
+
+                                <div class="project-content">
+                                    <div>
+                                        <span>Stakeholder Relations</span>
+
+                                        <h3>
+                                            <a routerLink="/careers">
+                                                Revenue Growth
+                                            </a>
+                                        </h3>
+
+                                        <a class="read-more" routerLink="/careers">
+                                            View More
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-project">
+                                <div class="project-image bg-7">
+                                    <div class="price-wrap"></div>
+                                </div>
+
+                                <div class="project-content">
+                                    <div>
+                                        <span>Strategy</span>
+
+                                        <h3>
+                                            <a routerLink="/careers">
+                                                Financial Analysis
+                                            </a>
+                                        </h3>
+
+                                        <a class="read-more" routerLink="/careers">
+                                            View More
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-12">
+                            <div class="single-project">
+                                <div class="project-image bg-8">
+                                    <div class="price-wrap"></div>
+                                </div>
+
+                                <div class="project-content">
+                                    <div>
+                                        <span>Coaching</span>
+
+                                        <h3>
+                                            <a routerLink="/careers">
+                                                Market Expansion
+                                            </a>
+                                        </h3>
+
+                                        <a class="read-more" routerLink="/careers">
+                                            View More
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <a class="default-btn" routerLink="/services">
+                        View More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Project Area -->
+
+<!-- Start Why Choose Us Area -->
+<section class="choose-us-area pb-100">
+    <div class="container">
+        <div class="section-title">
+            <h2>Wir liefern Ihnen einen stressfreien Umzug</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 pr-0">
+                <div class="choose-img choose-img-four">
+                </div>
+            </div>
+            <div class="col-lg-8 pl-0">
+                <div class="choose-tab-wrap">
+                    <h2>Getrieben von der Vision eines Umzugsprofis</h2>
+                    <div class="tab quote-list-tab choose-tab">
+                        <ul class="tabs">
+                            <li>
+                                <button class="btn btn-link" (click)="selectedTab = 'objective'" style="color: #f0da1a; text-decoration: none; font-weight: bold; font-size: 18px;">
+                                     Ziel
+                                </button>
+
+                                <button class="btn btn-link" (click)="selectedTab = 'mission'" style="color: #f0da1a; text-decoration: none; font-weight: bold; font-size: 18px;">
+                                     Mission
+                                </button>
+
+                                <button class="btn btn-link" (click)="selectedTab = 'vision'" style="color: #f0da1a; text-decoration: none; font-weight: bold; font-size: 18px;">
+                                     Vision
+                                </button>
+
+                                <button class="btn btn-link" (click)="selectedTab = 'motto'" style="color: #f0da1a; text-decoration: none; font-weight: bold; font-size: 18px;">
+                                     Motto
+                                </button>
+                        </ul>
+                        <div *ngIf="listSettings.length > 0" class="tab_content" style="position: relative; height: 300px; overflow-y: auto;">
+                            <div *ngIf="selectedTab === 'objective'" class="tabs_item" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;">
+                                <p [innerHTML]="listSettings[0].objective">Unser Ziel ist es, Ihnen einen stressfreien und sicheren Umzug zu bieten, bei dem Ihre Möbel und Wertsachen in sicheren Händen sind.</p>
+                            </div>
+                            <div *ngIf="selectedTab === 'mission'" class="tabs_item" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;">
+                                <p [innerHTML]="listSettings[0].mission">Unsere Mission ist es, Umzüge so einfach und effizient wie möglich zu gestalten, indem wir professionelle Dienstleistungen und maßgeschneiderte Lösungen bieten.</p>
+                            </div>
+                            <div *ngIf="selectedTab === 'vision'" class="tabs_item" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;">
+                                <p [innerHTML]="listSettings[0].vision">Unsere Vision ist es, die bevorzugte Wahl für alle zu werden, die einen Umzug in Deutschland durchführen, mit einem Ruf für Zuverlässigkeit und Kundenservice.</p>
+                            </div>
+                            <div *ngIf="selectedTab === 'motto'" class="tabs_item" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;">
+                                <p [innerHTML]="listSettings[0].motto">„Ihr Umzug, unsere Verantwortung – Wir machen es einfach.“</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- End Why Choose Us Area -->
+
+
+<!-- Start Counter Area -->
+<section class="counter-area-six pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-counter">
+                    <i class="flaticon-box"></i>
+
+                    <h2>
+                        <span class="odometer" data-count="8845">8845</span>
+                        <span class="target">+</span>
+                    </h2>
+
+                    <p>Umgezogene Haushalte</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-counter">
+                    <i class="flaticon-planet-earth"></i>
+
+                    <h2>
+                        <span class="odometer" data-count="1507">1507</span>
+                        <span class="target">+</span>
+                    </h2>
+
+                    <p>Abgedeckte Städte</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-counter">
+                    <i class="flaticon-support"></i>
+
+                    <h2>
+                        <span class="odometer" data-count="1000">9000</span>
+                        <span class="traget">+</span>
+                    </h2>
+
+                    <p>Zufriedene Kunden</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-counter">
+                    <i class="flaticon-product-realise"></i>
+
+                    <h2>
+                        <span class="odometer" data-count="4586">4586</span>
+                        <span class="traget">+</span>
+                    </h2>
+
+                    <p>Verschobene Möbelstücke (in Tonnen)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- End Counter Area -->
+
+<!-- End Began Area -->
+
+
+<!-- Start Blog Area -->
+<br><br>
+<section class="blog-area pb-70">
+    <div class="container">
+        <div class="section-title">
+            <h2>DIE VORGEHENSWEISE</h2>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="single-blog">
+                        <img src="assetsFront/img/blog/1.png" alt="Image">
+                    <div class="blog-content">
+                        
+                        <h3 style="color: #f0da1a;">
+                           
+                        1. Angbot erhalten
+                      
+                        </h3>
+                        <p>Nutzen Sie ganz bequem unser Buchungstool, dort können Sie Ihr Aus- und Umzugsdatum übermitteln.
+
+                        </p>
+                       <p style="font-weight: bold;">• Unsere Umzug-Experten beraten Sie</p>
+                        <p style="font-weight: bold;">• Unkomlizierte Online-Bezahlung</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single-blog">
+                        <img src="assetsFront/img/blog/2.png" alt="Image">
+                    <div class="blog-content">
+                      
+                       <h3 style="color: #f0da1a;">
+                           
+                        2. Individuelle Wünsche
+                      
+                        </h3>
+                        <p>Nutzen Sie ganz bequem unser Buchungstool, dort können Sie Ihr Aus- und Umzugsdatum übermitteln.
+
+                        </p>
+                       <p style="font-weight: bold;">• Unverbindliches Umzugs-Angbegot</p>
+                        <p style="font-weight: bold;">• Freundlicher Kundenservice</p>
+                     
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
+                <div class="single-blog">
+                        <img src="assetsFront/img/blog/3.png" alt="Image">
+                    <div class="blog-content">
+                      
+                       <h3 style="color: #f0da1a;">
+                           
+                        3. Ihr Umzug
+                      
+                        </h3>
+                        <p>Wir machen die Arbeit, mit uns ziehen Sie stressfrei und ganz entspannt in Ihr neues Zuhause.
+
+                        </p>
+                       <p style="font-weight: bold;">• Erfahrener Umzugspartner</p>
+                        <p style="font-weight: bold;">• Premium-Versicherung buchbar</p>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="office-map-area office-map-area-two office-map-area-four mt-minus-70">
+    <div class="container">
+        <div class="location-wrap">
+            <div class="map-location">
+                <h3><i class="flaticon-planet-earth"></i> Regional Offices</h3>
+                <ul *ngIf="listSettings && listSettings.length > 0">
+                    <li class="color">Tunisia</li>
+                    <li>{{ listSettings[0].adresse }}</li>
+                    <li>{{ listSettings[0].telephone }}</li>
+                    <li>{{ listSettings[0].email }}</li>
+                    <li>{{ formatTime(listSettings[0].heureDebut) | date: 'HH:mm' }}
+                        -{{ formatTime(listSettings[0].heureFin) | date: 'HH:mm' }}
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Regional offices Area -->
+
+<!-- Start Footer Top Area -->
+<app-footerFront></app-footerFront>
+<!-- End Footer Bottom Area -->
+
+<!-- Start Go Top Area -->
+<div class="go-top">
+    <i class='bx bx-chevrons-up bx-fade-up'></i>
+    <i class='bx bx-chevrons-up bx-fade-up'></i>
+</div>
+<!-- End Go Top Area -->
+
+
+<script>
+    window.addEventListener("scroll", function () {
+        var navbar = document.querySelector(".navbar-area");
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+</script>
+
+</body>
+</html>

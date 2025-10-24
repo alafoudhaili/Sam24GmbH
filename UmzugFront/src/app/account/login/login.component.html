@@ -1,0 +1,129 @@
+<div class="auth-page-wrapper pt-5">
+    <!-- auth page bg -->
+    <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+        <div class="bg-overlay"></div>
+
+        <div class="shape">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                 viewBox="0 0 1440 120">
+                <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- auth page content -->
+    <div class="auth-page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center mt-sm-5 mb-4 text-white-50">
+                        <span class="logo-lg">
+                            <a routerLink="" class="d-block">
+                                <h1 align="center" style="color: white;">XsupplY</h1>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card mt-4">
+
+                        <div class="card-body p-4">
+                            <div class="text-center mt-2">
+                                <h5 class="text-primary">Bienvenue!</h5>
+                                <p class="text-muted">Veuillez vous connecter</p>
+                            </div>
+                            <div class="p-2 mt-4">
+                                <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" formControlName="email"
+                                               placeholder="Saisir votre email">
+                                        <div
+                                                *ngIf="loginForm.get('email')!.invalid && (loginForm.get('email')!.dirty || loginForm.get('email')!.touched)"
+                                                class="alert alert-danger">
+                                            <div *ngIf="loginForm.get('email')!.errors?.['required']">
+                                                Vous devez saisir votre émail.
+                                            </div>
+                                            <div *ngIf="loginForm.get('email')!.errors?.['email']">
+                                                Email incorrect .
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="float-end">
+                                            <a routerLink="/auth/pass-reset/basic" class="text-muted">Mot de passe
+                                                oublié?</a>
+                                        </div>
+                                        <label class="form-label" for="password-input">Mot de Passe</label>
+                                        <div class="position-relative auth-pass-inputgroup mb-3">
+                                            <input [type]="fieldTextType ? 'text' : 'password'"
+                                                   class="form-control pe-5" placeholder="Saisir votre mot de passe"
+                                                   id="password-input" formControlName="password">
+                                            <div
+                                                    *ngIf="loginForm.get('password')!.invalid && (loginForm.get('password')!.dirty || loginForm.get('password')!.touched)"
+                                                    class="alert alert-danger">
+                                                <div *ngIf="loginForm.get('password')!.errors?.['required']">
+                                                    Vous devez saisir votre mot de passe.
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted"
+                                                    type="button" id="password-addon">
+                                                <i class="mdi align-middle"
+                                                   [ngClass]="{'mdi-eye-off-outline': !fieldTextType, 'mdi-eye-outline': fieldTextType  }" (click)="toggleFieldTextType()">
+                                                </i>
+                                            </button>
+                                            <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                                <span *ngIf="f['password'].errors?.['required']">Le mot de passe est obligatoire</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button class="btn btn-success w-100" type="submit">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <p class="mb-0">Vous n'avez pas encore un compte ?
+                                    <a routerLink="/auth/register" class="fw-semibold text-primary text-decoration-underline">
+                                        Créer un nouveau compte
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end auth page content -->
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <p class="mb-0 text-muted">&copy; {{year}} XsupplY created with <i
+                                class="mdi mdi-heart text-danger"></i> by Smart IT Partner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+</div>
+<!-- end auth-page-wrapper -->
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>
+
+

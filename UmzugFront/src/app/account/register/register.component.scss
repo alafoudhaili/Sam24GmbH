@@ -1,0 +1,59 @@
+th {
+  text-align: center ;
+  background-color: #d3d3d3;
+}
+tr{
+  text-align: center ;
+}
+.list-inline-item:not(:last-child):after {
+  content: " ";
+  margin-left: 10px; /* Ajustez cette valeur selon vos besoins */
+  margin-right: 10px; /* Ajustez cette valeur selon vos besoins */
+}
+.actions-header {
+  width: 200px;  /* Adjust this width based on your needs */
+}
+
+.small-text {
+  font-size: 0.8em;  /* This reduces the text size to 80% of the original. Adjust as needed. */
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+
+/* Styles pour la pagination MatPaginator */
+mat-paginator {
+  color: black; /* Couleur du texte de la pagination */
+  background-color: #d3d3d3; /* Couleur de fond de la pagination */
+}
+
+
+/* Style pour les icônes des boutons */
+.custom-previous-button mat-icon,
+.custom-next-button mat-icon {
+  font-size: 20px; /* Taille de la police des icônes */
+}
+
+/* Style personnalisé pour le bouton "Previous" */
+.custom-previous-button {
+  color: black; /* Couleur du texte */
+  background-color: black; /* Couleur de fond */
+  border: 1px solid #000; /* Bordure */
+  border-radius: 4px; /* Rayon de bordure */
+  margin: 2px; /* Marge entre les boutons */
+  min-width: 36px; /* Largeur minimale des boutons */
+  height: 36px; /* Hauteur des boutons */
+}
+
+/* Style personnalisé pour le bouton "Next" */
+.custom-next-button {
+  color: black; /* Couleur du texte */
+  background-color: white; /* Couleur de fond */
+  border: 1px solid #000; /* Bordure */
+  border-radius: 4px; /* Rayon de bordure */
+  margin: 2px; /* Marge entre les boutons */
+  min-width: 36px; /* Largeur minimale des boutons */
+  height: 36px; /* Hauteur des boutons */
+}

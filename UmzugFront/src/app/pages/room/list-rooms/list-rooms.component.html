@@ -1,0 +1,89 @@
+<app-breadcrumbs
+  title="Räume Liste"
+  [breadcrumbItems]="breadCrumbItems">
+</app-breadcrumbs>
+
+<div class="card mb-4">
+  <div class="card-body p-3">
+    <div class="d-flex mb-3">
+      <button class="btn btn-success ms-auto" (click)="addRoom()">
+        <i class="ri-add-line align-bottom me-1"></i> Hinzufügen
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-sm">
+        <thead class="bg-light text-muted">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>AKTIONEN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let room of rooms">
+            <td>{{ room.id_room }}</td>
+            <td>{{ room.name }}</td>
+            <td>
+              <a class="text-primary me-2" style="cursor:pointer;"
+                 (click)="openEditModal(editModal, room)">
+                <i class="ri-pencil-fill fs-16"></i>
+              </a>
+              <a class="text-danger" style="cursor:pointer;"
+                 (click)="confirmDelete(deleteModal, room)">
+                <i class="ri-delete-bin-5-fill fs-16"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<ng-template #editModal let-modal>
+  <form [formGroup]="editRoomForm" (ngSubmit)="saveRoom()">
+    <div class="modal-header bg-light p-3">
+      <h5 class="modal-title">Raum bearbeiten (ID: {{ selectedRoom?.id_room }})</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="editModalRef.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <!-- Name -->
+      <div class="mb-3">
+        <label class="form-label" for="nameInput">Name *</label>
+        <input type="text"
+               id="nameInput"
+               class="form-control"
+               formControlName="name"
+               placeholder="Raumname" />
+        <div *ngIf="submitted && editRoomForm.get('name')?.invalid"
+             class="text-danger small mt-1">
+          Name ist erforderlich.
+        </div>
+      </div>
+
+      <!-- Elemente -->
+     
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" type="button" (click)="editModalRef.dismiss()">Abbrechen</button>
+      <button class="btn btn-primary" type="submit">Speichern</button>
+    </div>
+  </form>
+</ng-template>
+
+<!-- Delete Modal -->
+<ng-template #deleteModal>
+  <div class="modal-header">
+    <h5 class="modal-title">Raum löschen?</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="deleteModalRef.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p>Möchten Sie den Raum "{{ selectedRoom?.name }}" wirklich löschen?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="deleteModalRef.dismiss()">Abbrechen</button>
+    <button class="btn btn-danger" (click)="deleteRoom()">Löschen</button>
+  </div>
+</ng-template>

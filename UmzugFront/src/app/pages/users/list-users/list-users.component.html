@@ -1,0 +1,125 @@
+<app-breadcrumbs title="Benutzerverwaltung" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-body p-3">
+                <div id="customerList">
+                    <div class="row g-2">
+                        <div class="col-sm-4">
+                            <div class="search-box">
+                                <input type="text" class="form-control " [(ngModel)]="searchName"
+                                       (input)="filterUsers()" placeholder="Suchen...">
+                                <i class="ri-search-line search-icon"></i>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto ms-auto">
+                            <div class="list-grid-nav hstack gap-1">
+                                <button type="button" class="btn btn-success add-btn" (click)="add()"><i
+                                        class="ri-add-line align-bottom me-1"></i> Hinzufügen
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngFor="let letter of alphabet" (click)="onLetterClick(letter)">
+                    </div>
+                    <br>
+                    <div class="row g-2">
+                        <div class="btn-group d-flex justify-content-center" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-soft-secondary btn-sm waves-effect mx-2"
+                                    (click)="getAll()">
+                                ALLE
+                            </button>
+                            <button type="button" class="btn btn-soft-secondary btn-sm waves-effect mx-2"
+                                    (click)="getAdmins()">ADMIN
+                            </button>
+                           
+                            <button type="button" class="btn btn-soft-secondary btn-sm waves-effect mx-2"
+                                    (click)="getMitarbeiter()">
+                                MITARBEITER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="table mt-3 mb-1" >
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                        <tr class="bg-light text-muted">
+                            <th class="small-text nowrap">NACHNAME</th>
+                            <th class="small-text nowrap">VORNAME</th>
+                            <th class="small-text nowrap">E-MAIL</th>
+                            <th class="small-text nowrap">ROLLE</th>
+                            <th class="small-text nowrap">FOTO</th>
+                            <th class="actions-header small-text">AKTIONEN</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let user of listUsers| slice: (currentPage - 1) * itemsPerPage : currentPage * itemsPerPage">
+                            <td class="small-text nowrap"><span>{{ user.nom }}</span></td>
+                            <td class="small-text nowrap"><span>{{ user.prenom }}</span></td>
+                            <td class="small-text nowrap"><span>{{ user.email }}</span></td>
+                           
+                            <td class="small-text nowrap"><span>{{ user.role }}</span></td>
+
+                            <td class="small-text nowrap">
+                                <span><img height="50" width="50" [src]="user.photoProfil ? user.photoProfil : 'assets/images/avatar.png'" class="rounded-circle img-fluid img-thumbnail" alt=""/></span>
+                            </td>
+                            <td class="small-text nowrap">
+                            
+                                <a class="text-danger d-inline-block remove-item-btn" data-bs-toggle="modal"
+                                   ngbTooltip="Löschen" data-bs-target="#deleteOrder" style="cursor: pointer;"
+                                   (click)="confirm(deleteModel, user.id_user)">
+                                    <i class="ri-delete-bin-5-fill fs-16"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <ngb-pagination
+                [collectionSize]="length"
+                [(page)]="currentPage"
+                [pageSize]="itemsPerPage"
+                [maxSize]="5"
+                [rotate]="true"
+                (pageChange)="pageChanged($event)"
+        ></ngb-pagination>
+
+    </div>
+</div>
+
+
+<ng-template #deleteModel let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"
+                    (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mt-2 text-center">
+                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                           colors="primary:#405189,secondary:#f06548" style="width:90px;height:90px"></lord-icon>
+                <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                    <h4>Wollen Sie diesen Benutzer wirklich löschen?</h4>
+                    <p class="text-muted mx-4 mb-0">Diese Aktion wird diesen Benutzer dauerhaft löschen.</p>
+                </div>
+            </div>
+            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                <button type="button" class="btn w-sm btn-success" ngbTooltip="Abbrechen" data-bs-trigger="hover"
+                        (click)="modal.close('Close click')">Abbrechen
+                </button>
+                <button type="button" class="btn w-sm btn-danger " id="delete-product"
+                        (click)="deleteUser()">Ja, ich lösche!
+                </button>
+            </div>
+
+        </div>
+    </div><!-- /.modal-content -->
+</ng-template>

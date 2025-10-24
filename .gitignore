@@ -1,0 +1,12 @@
+#back
+
+/UmzugBack/target/
+
+
+#front
+
+/UmzugFront/dist/
+/UmzugFront/node_modules/
+/UmzugFront/.angular/
+/UmzugFront/.idea/
+

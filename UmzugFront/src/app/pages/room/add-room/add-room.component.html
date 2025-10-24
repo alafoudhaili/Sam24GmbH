@@ -1,0 +1,30 @@
+<app-breadcrumbs
+  title="Raum hinzufügen"
+  [breadcrumbItems]="breadCrumbItems">
+</app-breadcrumbs>
+
+<div class="container mt-4">
+  <div class="card p-4">
+    <form [formGroup]="addRoomForm" (ngSubmit)="onSubmit()">
+      <!-- Name -->
+      <div class="mb-3">
+        <label for="name" class="form-label">Name *</label>
+        <input type="text" id="name" class="form-control"
+               formControlName="name" placeholder="Raumname" />
+        <div *ngIf="f['name'].invalid && (f['name'].touched || f['name'].dirty)"
+             class="text-danger small">
+          Name ist erforderlich.
+        </div>
+      </div>
+
+      <!-- Elements multi-select -->
+     
+
+      <!-- Actions -->
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-success me-3" type="submit">Hinzufügen</button>
+        <button class="btn btn-danger" type="button" (click)="cancel()">Abbrechen</button>
+      </div>
+    </form>
+  </div>
+</div>
