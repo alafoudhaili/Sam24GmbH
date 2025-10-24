@@ -39,5 +39,5 @@ Sam24 GmbH is an online platform that allows clients to book **Umzüge** (moving
 
 ### Clone the Project (Spring Boot + Agular)
 
-   git clone https://github.com/your-username/sam24gmbh-backend.git
-   cd sam24gmbh-backend
+   git clone https://github.com/alafoudhaili/Sam24GmbH.git
+   
