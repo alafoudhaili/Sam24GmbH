@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams,HttpHeaders  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Kitchen,Room } from '../pages/umzug/add-umzug/add-umzug.component';
 import {environment} from "../../environments/environment";
@@ -29,6 +29,14 @@ export class UmzugService {
     
     return this.http.get<PageResponse<any>>(this.apiUrl, { params });
   }
+   uploadImage(imageFile: File): Observable<string> {
+    const formData = new FormData();
+    formData.append('file', imageFile, imageFile.name);  // Appending the file to the FormData object
+
+    const headers = new HttpHeaders();
+
+    return this.http.post<string>(`${this.apiUrl}/upload-image`, formData, { headers });
+  }
  assignUsersToUmzug(requestId: number, userIds: number[]): Observable<any> {
     const params = {
       userIds: userIds.join(','), // Convert array to comma-separated string
@@ -52,8 +60,8 @@ export class UmzugService {
     return this.http.post<number>(`${this.apiUrl}/calculate`, umzugData);
   }
 
-  saveUmzug(umzugData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/save`, umzugData);
+  saveUmzug(umzugData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/save`, umzugData,);
   }
     updateUmzug(id: number, requestData: any): Observable<Request> {
     return this.http.put<Request>(`${this.apiUrl}/${id}`, requestData);

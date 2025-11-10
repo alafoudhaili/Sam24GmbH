@@ -1,16 +1,24 @@
 package com.sip.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sip.entities.Element;
 import com.sip.entities.ResponseMessage;
 import com.sip.entities.Room;
+import com.sip.exceptions.NotAnImageFileException;
 import com.sip.services.ElementService;
 import com.sip.services.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+
+import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,8 +45,13 @@ public class ElementController {
     }
 
     @PostMapping(value = "/add")
-    public ResponseEntity save(@RequestBody Element element ){
-
+    public ResponseEntity save(  @RequestParam("element") String elementJson,
+                                 @RequestParam(value = "file", required = false) MultipartFile file) throws IOException, NotAnImageFileException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Element element = objectMapper.readValue(elementJson, Element.class);
+        if (file != null) {
+            elementService.saveElementImage(element,file);
+        }
         Element result = elementService.save(element);
         if (result != null) {
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -78,6 +91,11 @@ public class ElementController {
             return new ResponseEntity<>(request,HttpStatus.OK);
         }
         return new ResponseEntity<>("This element doesn't exist", HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping(path = "/image/{fileName}", produces = IMAGE_JPEG_VALUE)
+    public byte[] getSettingsLogo( @PathVariable("fileName") String fileName) throws IOException {
+        return Files.readAllBytes(Paths.get("uploads/element/" + fileName));
     }
 
 }

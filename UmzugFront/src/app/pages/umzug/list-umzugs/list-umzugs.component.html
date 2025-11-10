@@ -334,8 +334,8 @@
                                     <table class="table table-sm">
                                         <thead>
                                             <tr>
+                                                <th>Bild</th>
                                                 <th>Anzahl</th>
-
                                                 <th>Name</th>
                                                 <th>Abmessungen (cm)</th>
                                                 <th>Volumen (m³)</th>
@@ -344,6 +344,18 @@
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let element of room.elements">
+                                                <td>
+                                                    <img 
+                                                        *ngIf="element.imageUrl" 
+                                                        [src]="element.imageUrl" 
+                                                        alt="{{ element.name }}"
+                                                        class="img-thumbnail"
+                                                        style="max-width: 80px; max-height: 80px; object-fit: cover;"
+                                                    />
+                                                    <span *ngIf="!element.imageUrl" class="text-muted">
+                                                        <i class="fas fa-image"></i> Kein Bild
+                                                    </span>
+                                                </td>
                                                 <td>
                                                     <strong>{{ element.numberElement }}</strong>
                                                 </td>

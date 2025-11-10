@@ -436,25 +436,44 @@
     </div>
 
     <!-- Room Selection -->
-    <div class="bg-gray-50 p-6 rounded-lg" *ngIf="rooms.length > 0">
-      <h2 class="text-xl font-semibold mb-4">Räume auswählen</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <button
-          *ngFor="let room of rooms"
-          type="button"
-          class="p-3 rounded-lg border-2 transition-colors"
-          [class.border-blue-500]="selectedRooms[room.id_room]"
-          [class.bg-blue-50]="selectedRooms[room.id_room]"
-          [class.text-blue-700]="selectedRooms[room.id_room]"
-          [class.border-gray-300]="!selectedRooms[room.id_room]"
-          [class.bg-white]="!selectedRooms[room.id_room]"
-          [class.hover:border-gray-400]="!selectedRooms[room.id_room]"
-          (click)="toggleRoom(room.id_room)"
-        >
-          {{ room.name }}
-        </button>
+ <div class="rooms-selection-container" *ngIf="rooms.length > 0">
+  <div class="section-header">
+    <div class="header-content">
+      <div class="icon-wrapper">
+        <i class="fas fa-door-open"></i>
+      </div>
+      <div>
+        <h2 class="section-title">Räume auswählen</h2>
+        <p class="section-subtitle">Klicken Sie auf die Räume zum Auswählen</p>
       </div>
     </div>
+    <div class="selection-badge" *ngIf="getSelectedRoomsList().length > 0">
+      <span class="badge-number">{{ getSelectedRoomsList().length }}</span>
+    </div>
+  </div>
+  
+  <div class="rooms-grid">
+    <div
+      *ngFor="let room of rooms"
+      class="room-card-compact"
+      [class.is-selected]="selectedRooms[room.id_room]"
+      (click)="toggleRoom(room.id_room)"
+    >
+      <!-- Check Icon -->
+      <div class="check-icon" *ngIf="selectedRooms[room.id_room]">
+        <i class="fas fa-check"></i>
+      </div>
+      
+      <!-- Room Icon -->
+      <div class="room-icon-compact">
+        <i class="fas fa-couch"></i>
+      </div>
+      
+      <!-- Room Name -->
+      <h3 class="room-name-compact">{{ room.name }}</h3>
+    </div>
+  </div>
+</div>
 
     <!-- Mobels for selected rooms -->
     <div
@@ -535,6 +554,19 @@
               step="0.1"
             />
           </div>
+          <div class="col-span-1 md:col-span-5">
+  <label class="block text-sm font-medium mb-1">Bild (optional)</label>
+  <input
+    type="file"
+    accept="image/*"
+    (change)="onImageSelect(room.id_room, mobelIndex, $event)"
+    class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+  />
+
+   <div *ngIf="mobel.imagePreview" class="mt-2">
+        <img [src]="mobel.imagePreview" alt="Möbel Bild" class="h-24 w-auto rounded border" />
+      </div>
+</div>
           <div class="flex items-center space-x-2">
             <div class="text-sm text-gray-600">
               {{ (mobel.q2 || 0).toFixed(3) }} m²
@@ -651,7 +683,7 @@
           <i class="ri-loader-4-line animate-spin"></i>
         </span>
         <i *ngIf="!loading" class="{{ isEditMode ? 'ri-save-line' : 'ri-add-line' }} mr-1"></i>
-        {{ loading ? (isEditMode ? 'Wird aktualisiert...' : 'Wird gespeichert...') : (isEditMode ? 'Änderungen speichern' : 'Umzug speichern') }}
+        {{ loading ? (isEditMode ? 'Wird aktualisiert...' : 'Wird gespeichert...') : (isEditMode ? 'speichern' : 'speichern') }}
       </button>
     </div>
   </form>

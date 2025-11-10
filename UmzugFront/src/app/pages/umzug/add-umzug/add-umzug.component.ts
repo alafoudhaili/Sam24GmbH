@@ -28,6 +28,8 @@ export interface Mobel {
   length: number;
   q2: number;
   price:number;
+    imagePreview?: string; // Add this field for image preview
+imageUrl?:any
 }
 
 export interface Request {
@@ -288,7 +290,33 @@ export class AddUmzugComponent implements OnInit {
     
     this.mobelsForRooms[roomId].push(newMobel);
   }
+onImageSelect(roomId: number, mobelIndex: number, event: any): void {
+  const imageFile = event.target.files[0] as File;
+  if (!imageFile) return;
 
+  // Validate file type
+  if (!imageFile.type.startsWith('image/')) {
+    this.sweetAlertService.error('Bitte wählen Sie nur Bilddateien aus');
+    return;
+  }
+
+  // Validate file size (max 5MB)
+  if (imageFile.size > 5 * 1024 * 1024) {
+    this.sweetAlertService.error('Bildgröße darf 5MB nicht überschreiten');
+    return;
+  }
+
+  const mobel = this.mobelsForRooms[roomId][mobelIndex];
+ const reader = new FileReader();
+      reader.onload = () => {
+           mobel.imageUrl=imageFile
+
+        mobel.imagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(imageFile);
+  // Upload image to the backend and handle response
+ 
+}
   removeMobelFromRoom(roomId: number, mobelIndex: number): void {
     if (this.mobelsForRooms[roomId]) {
       this.mobelsForRooms[roomId].splice(mobelIndex, 1);
@@ -425,26 +453,37 @@ export class AddUmzugComponent implements OnInit {
 
   onSubmit(): void {
     if (this.umzugForm.valid) {
-      const formData = this.umzugForm.value;
-      
-      // Prepare mobels array
-      const roomsPayload = Object.entries(this.mobelsForRooms).map(([roomIdStr, mobels]) => {
-        const roomId = Number(roomIdStr);
-        return {
-          room: { id_room: roomId }, // minimal; backend will attach managed Room
-          elements: mobels.map(m => ({
-            id_element: m.id, // Include ID for existing elements in edit mode
-            name: m.name,
-            width: m.width,
-            height: m.height,
-            length: m.length,
-            q2: m.q2,
-            numberElement: m.numberElement,
+     const formData = this.umzugForm.value;
+           const formDataUmzug = new FormData();
 
-            price:m.price
-          }))
-        };
-      });
+
+      // Prepare mobels array
+       const roomsPayload = Object.entries(this.mobelsForRooms).map(([roomIdStr, mobels]) => {
+      const roomId = Number(roomIdStr);
+      return {
+        room: { id_room: roomId },
+        elements: mobels.map(mobel => {
+          const elementData: any = {
+            id_element: mobel.id,
+            name: mobel.name,
+            width: mobel.width,
+            height: mobel.height,
+            length: mobel.length,
+            q2: mobel.q2,
+            numberElement: mobel.numberElement,
+            price: mobel.price,
+          };
+
+          // Add the image for the element if available
+          if (mobel.imageUrl) {
+
+            formDataUmzug.append('file', mobel.imageUrl);
+          }
+
+          return elementData;
+        })
+      };
+    });
 
       const now = new Date();
       const formattedDate = `${now.getFullYear()}-${('0'+(now.getMonth()+1)).slice(-2)}-${('0'+now.getDate()).slice(-2)} ${('0'+now.getHours()).slice(-2)}:${('0'+now.getMinutes()).slice(-2)}`;
@@ -464,11 +503,12 @@ export class AddUmzugComponent implements OnInit {
       }
 
       this.loading = true;
+  formDataUmzug.append('umzugData', JSON.stringify(umzugData));
 
       // Choose save or update method based on mode
       const saveObservable = this.isEditMode && this.editingRequestId 
-        ? this.umzugService.updateUmzug(this.editingRequestId, umzugData)
-        : this.umzugService.saveUmzug(umzugData);
+        ? this.umzugService.updateUmzug(this.editingRequestId, formDataUmzug)
+        : this.umzugService.saveUmzug(formDataUmzug);
 
       saveObservable.subscribe({
         next: (result) => {

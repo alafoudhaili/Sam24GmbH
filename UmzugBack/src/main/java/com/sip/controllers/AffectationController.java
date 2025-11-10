@@ -35,7 +35,15 @@ public class AffectationController {
         List<Request> requests = affectationService.getRequestsByUser(userId);
         return ResponseEntity.ok(requests);
     }
-
+    @GetMapping("/{userId}/requests/weekly")
+    public ResponseEntity<List<Request>> getWeeklyRequestsByUser(@PathVariable Long userId) {
+        try {
+            List<Request> requests = affectationService.getWeeklyRequestsByUser(userId);
+            return ResponseEntity.ok(requests);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
     // Endpoint to get all users associated with a specific request
     @GetMapping("/request/{requestId}/users")
     public ResponseEntity<List<User>> getUsersByRequest(@PathVariable Long requestId) {

@@ -1,22 +1,38 @@
 package com.sip.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sip.entities.*;
+import com.sip.exceptions.NotAnImageFileException;
+import com.sip.services.ElementService;
 import com.sip.services.UmzugPriceCalculator;
 import com.sip.repositories.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api/umzug")
-@CrossOrigin(origins = "http://localhost:4200")
+@RequiredArgsConstructor
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class RequestController {
 
     @Autowired
@@ -30,6 +46,7 @@ public class RequestController {
 
     @Autowired
     private UmzugPriceCalculator priceCalculator;
+    private final ElementService elementService;
 
     @GetMapping("/rooms")
     public List<Room> getAllRooms() {
@@ -64,24 +81,41 @@ public class RequestController {
     }
 
     @PostMapping("/save")
-    public Request saveUmzug(@RequestBody Request umzug) {
-        // wire back-references
+    public Request saveUmzug(@RequestParam("umzugData") String umzugDataJson,
+                             @RequestParam(value = "file", required = false) MultipartFile[] files) throws IOException, NotAnImageFileException {
+        // Convert umzugData JSON to Java object
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        Request umzug = objectMapper.readValue(umzugDataJson, Request.class);
+        int fileIndex = 0;
+
+        // Handle rooms and elements
         if (umzug.getRooms() != null) {
             for (RequestRoom rr : umzug.getRooms()) {
                 rr.setRequest(umzug);
                 if (rr.getElements() != null) {
                     for (Element e : rr.getElements()) {
                         e.setRequestRoom(rr);
-                        // compute q2 if needed
+                        // Compute Q2 if necessary
                         if (e.getWidth() != null && e.getHeight() != null && e.getLength() != null) {
-                            e.setQ2(((e.getWidth() * e.getHeight() * e.getLength())*e.getNumberElement()) / 1_000_000f);
+                            e.setQ2(((e.getWidth() * e.getHeight() * e.getLength()) * e.getNumberElement()) / 1_000_000f);
+                        }
+
+                        // Handle image upload
+                        if (files != null && fileIndex < files.length ) {
+                            MultipartFile file = files[fileIndex];
+                            if (file != null && !file.isEmpty()) {
+                                elementService.saveElementImage(e, file);
+                            }
+                            fileIndex++;
                         }
                     }
                 }
             }
         }
 
-        // compute totals
+        // Calculate totals
         float totalVolume = (float) umzug.getRooms().stream()
                 .filter(r -> r.getElements() != null)
                 .flatMap(r -> r.getElements().stream())
@@ -92,6 +126,23 @@ public class RequestController {
         umzug.setTotalPrice(priceCalculator.calculateTotalPrice(umzug));
 
         return umzugRepository.save(umzug);
+    }
+    @PostMapping("/upload-image")
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
+        try {
+            // Create an element or retrieve the element based on your logic
+            Element element = new Element();
+
+            // Call your saveElementImage service method to save the image
+            elementService.saveElementImage(element, file);
+
+            // After saving, return the image URL
+            String imageUrl = element.getImageUrl();
+
+            return ResponseEntity.ok(imageUrl); // Respond with the image URL
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image upload failed");
+        }
     }
     @PutMapping("/{id}")
     public ResponseEntity<Request> updateRequest(@PathVariable Long id, @RequestBody Request updatedRequest) {

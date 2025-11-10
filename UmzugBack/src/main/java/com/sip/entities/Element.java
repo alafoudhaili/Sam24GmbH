@@ -45,4 +45,7 @@ public class Element {
     @Column
     private Float price;
 
+    @Column
+    private String imageUrl;
+
 }

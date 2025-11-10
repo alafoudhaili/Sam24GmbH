@@ -29,6 +29,9 @@ export interface Mobel {
   length: number;
   q2: number;
   price:number;
+    imagePreview?: string; // Add this field for image preview
+imageUrl?:any
+
 }
 
 export interface Request {
@@ -82,7 +85,7 @@ export class UmzugFormularComponent implements OnInit {
   totalPrice: number = 0;
   totalVolume: number = 0;
   loading = false;
-  
+ 
   // Edit mode variables
   isEditMode = false;
   editingRequestId: number | null = null;
@@ -292,11 +295,39 @@ export class UmzugFormularComponent implements OnInit {
       height: 0,
       length: 0,
       q2: 0,
-      price: 0
+      price: 0,
+
     };
     
     this.mobelsForRooms[roomId].push(newMobel);
   }
+onImageSelect(roomId: number, mobelIndex: number, event: any): void {
+  const imageFile = event.target.files[0] as File;
+  if (!imageFile) return;
+
+  // Validate file type
+  if (!imageFile.type.startsWith('image/')) {
+    this.sweetAlertService.error('Bitte wählen Sie nur Bilddateien aus');
+    return;
+  }
+
+  // Validate file size (max 5MB)
+  if (imageFile.size > 5 * 1024 * 1024) {
+    this.sweetAlertService.error('Bildgröße darf 5MB nicht überschreiten');
+    return;
+  }
+
+  const mobel = this.mobelsForRooms[roomId][mobelIndex];
+ const reader = new FileReader();
+      reader.onload = () => {
+           mobel.imageUrl=imageFile
+
+        mobel.imagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(imageFile);
+  // Upload image to the backend and handle response
+ 
+}
 
   removeMobelFromRoom(roomId: number, mobelIndex: number): void {
     if (this.mobelsForRooms[roomId]) {
@@ -450,7 +481,8 @@ export class UmzugFormularComponent implements OnInit {
             height: m.height,
             length: m.length,
             q2: m.q2,
-            price: m.price
+            price: m.price,
+
           }))
         };
       });
@@ -475,28 +507,36 @@ export class UmzugFormularComponent implements OnInit {
   onSubmit(): void {
     if (this.umzugForm.valid) {
       const formData = this.umzugForm.value;
-      
+           const formDataUmzug = new FormData();
+
+
       // Prepare mobels array
-      const roomsPayload = Object.entries(this.mobelsForRooms).map(([roomIdStr, mobels]) => {
-        const roomId = Number(roomIdStr);
-        
-        return {
-          room: { id_room: roomId }, // minimal; backend will attach managed Room
-          elements: mobels.map(m => {
-      console.log('q2 value for element', m.name, ':', m.q2); // <-- log q2 here
+       const roomsPayload = Object.entries(this.mobelsForRooms).map(([roomIdStr, mobels]) => {
+      const roomId = Number(roomIdStr);
       return {
-        id_element: m.id, // Include ID for existing elements in edit mode
-        name: m.name,
-        width: m.width,
-        height: m.height,
-        length: m.length,
-        q2: m.q2,
-        numberElement: m.numberElement,
-        price: m.price,
+        room: { id_room: roomId },
+        elements: mobels.map(mobel => {
+          const elementData: any = {
+            id_element: mobel.id,
+            name: mobel.name,
+            width: mobel.width,
+            height: mobel.height,
+            length: mobel.length,
+            q2: mobel.q2,
+            numberElement: mobel.numberElement,
+            price: mobel.price,
+          };
+
+          // Add the image for the element if available
+          if (mobel.imageUrl) {
+
+            formDataUmzug.append('file', mobel.imageUrl);
+          }
+
+          return elementData;
+        })
       };
-    })
-        };
-      });
+    });
 
       const now = new Date();
       const formattedDate = `${now.getFullYear()}-${('0'+(now.getMonth()+1)).slice(-2)}-${('0'+now.getDate()).slice(-2)} ${('0'+now.getHours()).slice(-2)}:${('0'+now.getMinutes()).slice(-2)}`;
@@ -517,11 +557,16 @@ export class UmzugFormularComponent implements OnInit {
       }
 
       this.loading = true;
+  formDataUmzug.append('umzugData', JSON.stringify(umzugData));
+
+    // If there is an image to upload, append it
+   
+       
 
       // Choose save or update method based on mode
       const saveObservable = this.isEditMode && this.editingRequestId 
         ? this.umzugService.updateUmzug(this.editingRequestId, umzugData)
-        : this.umzugService.saveUmzug(umzugData);
+            : this.umzugService.saveUmzug(formDataUmzug);  // Pass FormData
 
       saveObservable.subscribe({
         next: async (result) => {

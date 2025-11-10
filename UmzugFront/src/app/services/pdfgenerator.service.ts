@@ -419,7 +419,9 @@ export class PdfGeneratorService {
           <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
             <thead>
               <tr>
-                              <th style="background: #f0da1a; color: black; padding: 8px; text-align: left;">Anzahl der Möbel</th>
+                <th style="background: #f0da1a; color: black; padding: 8px; text-align: left;">Bild</th>
+
+                <th style="background: #f0da1a; color: black; padding: 8px; text-align: left;">Anzahl der Möbel</th>
                 <th style="background: #f0da1a; color: black; padding: 8px; text-align: left;">Möbel Name</th>
                 <th style="background: #f0da1a; color: black; padding: 8px; text-align: left;">Breite (cm)</th>
                 <th style="background: #f0da1a; color: black; padding: 8px; text-align: left;">Höhe (cm)</th>
