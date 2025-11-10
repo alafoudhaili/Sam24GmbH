@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  apiUrl : 'http://xsupply.smart-it-partner.com:82/api/',
+  apiUrl : 'https://api.sam24gmbh.com/api/',
   defaultauth: 'fackbackend',
   firebaseConfig: {
     apiKey: '',

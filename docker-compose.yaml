@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  # Backend (Spring Boot)
+  umzug-back:
+    image: umzug-back
+    container_name: umzug_back_cont
+    ports:
+      - "127.0.0.1:82:82"          
+    restart: always
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/Sam24GmbH-db?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: UmZug124578
+    volumes:
+      - uploads_data:/app/uploads
+    networks:
+      - umzug_net
+
+  # Frontend (Angular/NGINX)
+  umzug-front:
+    image: umzug-front
+    container_name: umzug_front_cont
+    ports:
+      - "127.0.0.1:8090:80"        
+    restart: always
+    depends_on:
+      - umzug-back
+    networks:
+      - umzug_net
+
+  # MySQL (pas de port exposé vers l'hôte)
+  db:
+    image: mysql:latest
+    container_name: umzug_bd_cont
+    volumes:
+      - umzug_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: Sam24GmbH-db
+      MYSQL_USER: ala
+      MYSQL_PASSWORD: AZeRttyTgH45
+      MYSQL_ROOT_PASSWORD: UmZug124578
+    networks:
+      - umzug_net
+
+  # PhpMyAdmin (optionnel : aussi en localhost only)
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: umzug_pmadmin_cont
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "127.0.0.1:8071:80"        
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - umzug_net
+
+volumes:
+  umzug_data:
+  uploads_data:
+
+networks:
+  umzug_net:
+    driver: bridge
